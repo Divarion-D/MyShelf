@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Anime gallery with movies and series">
+    <meta name="keywords" content="anime, gallery, movies, series">
+
+    <title>Anime Gallery</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/img/logo/favicon.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all-fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/icomoon.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="home-4">
+    <div class="preloader">
+        <div class="loader-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <header class="header">
+        <div class="main-navigation">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container position-relative">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="assets/img/logo/logo.png" class="logo-dark-mode" alt="logo">
+                        <img src="assets/img/logo/logo-dark.png" class="logo-light-mode" alt="logo">
+                    </a>
+                    <div class="mobile-menu-right">
+                        <div class="color-mode theme-mode-control">
+                            <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
+                            <button type="button" class="nav-right-link dark-btn"><i class="icon-moon-2"></i></button>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main_nav">
+                        <div class="nav-right">
+                            <div class="color-mode theme-mode-control">
+                                <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
+                                <button type="button" class="nav-right-link dark-btn"><i
+                                        class="icon-moon-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="movie-area pt-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="site-heading-inline">
+                            <h2 class="site-title">Anime Movies</h2>
+                            <a href="anime.html" class="theme-btn">View All<i class="far fa-angles-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-slider owl-carousel owl-theme" id="movie-gallery">
+                    <!-- Фильмы будут добавлены динамически -->
+                </div>
+            </div>
+        </div>
+        <div class="movie-area pt-70 pb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="site-heading-inline">
+                            <h2 class="site-title">Anime Series</h2>
+                            <a href="anime.html" class="theme-btn">View All<i class="far fa-angles-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-slider owl-carousel owl-theme" id="series-gallery">
+                    <!-- Фильмы будут добавлены динамически -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно -->
+        <div class="modal fade" id="animeModal" tabindex="-1" aria-labelledby="animeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-5">
+                                <div class="image-container">
+                                    <img id="modal-cover" src="" alt="Обложка">
+                                    <div class="image-backdrop"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="info-container">
+                                    <p><strong>Дата выпуска:</strong> <span id="modal-date"></span></p>
+                                    <p><strong>Количество серий:</strong> <span id="modal-series"></span></p>
+                                    <p><strong>Длительность:</strong> <span id="modal-time"></span> мин</p>
+                                    <p><strong>Описание:</strong> <span id="modal-description"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <footer class="footer-area">
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 align-self-center">
+                        <p class="copyright-text">
+                            &copy; Copyright <span id="date"></span> <a href="index.html#"> moplay </a> All Rights
+                            Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 align-self-center">
+                        <ul class="footer-social">
+                            <li><a href="index.html#"><i class="fab fa-vk"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <a href="index.html#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
+
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <script src="assets/js/jquery.appear.min.js"></script>
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/counter-up.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData(animeYears, 'home');
+        });
+    </script>
+
+</body>
+
+</html>

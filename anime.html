@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Просммотреное аниме">
+    <meta name="keywords" content="аниме, сериалы, анимация">
+
+    <title>Anime</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/img/logo/favicon.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all-fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/icomoon.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/nice-select.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="loader-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="main-navigation">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container position-relative">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="assets/img/logo/logo.png" class="logo-dark-mode" alt="logo">
+                        <img src="assets/img/logo/logo-dark.png" class="logo-light-mode" alt="logo">
+                    </a>
+                    <div class="mobile-menu-right">
+                        <div class="color-mode theme-mode-control">
+                            <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
+                            <button type="button" class="nav-right-link dark-btn"><i class="icon-moon-2"></i></button>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main_nav">
+                        <div class="nav-right">
+                            <div class="color-mode theme-mode-control">
+                                <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
+                                <button type="button" class="nav-right-link dark-btn"><i
+                                        class="icon-moon-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="site-breadcrumb">
+            <div class="container">
+                <h2 class="breadcrumb-title">Anime</h2>
+                <ul class="breadcrumb-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Anime</li>
+                </ul>
+            </div>
+        </div>
+        <div class="filter-area">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-3">
+                        <div class="filter-search">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="search-input"
+                                        placeholder="Поиск аниме...">
+                                    <button type="button"><i class="icon-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="filter-content">
+                            <form action="#">
+                                <div class="filter-sort">
+                                    <div class="filter-select">
+                                        <select class="select" id="type-filter">
+                                            <option value="any">Тип</option>
+                                            <option value="movie">Фильм</option>
+                                            <option value="series">Сериал</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-select">
+                                        <select class="select" id="year-filter">
+                                            <option value="any">Год</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-select">
+                                        <select class="select" id="sort-filter">
+                                            <option value="none">Сортировка</option>
+                                            <option value="date-desc">По дате (убывание)</option>
+                                            <option value="date-asc">По дате (возрастание)</option>
+                                            <option value="name-asc">По названию (А-Я)</option>
+                                            <option value="name-desc">По названию (Я-А)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="filter-btn text-end">
+                            <button type="button" class="theme-btn" id="apply-filter"><span class="fas fa-sort"></span>
+                                Применить фильтр</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-area py-80">
+            <div class="container">
+                <div class="row row-cols-xl-5" id="series-gallery">
+                    <!-- Карточки аниме будут добавлены динамически -->
+                </div>
+
+                <div class="pagination-area mt-20">
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination" id="pagination">
+                            <!-- Пагинация будет добавлена динамически -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно -->
+        <div class="modal fade" id="animeModal" tabindex="-1" aria-labelledby="animeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-5">
+                                <div class="image-container">
+                                    <img id="modal-cover" src="" alt="Обложка">
+                                    <div class="image-backdrop"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="info-container">
+                                    <p><strong>Дата выпуска:</strong> <span id="modal-date"></span></p>
+                                    <p><strong>Количество серий:</strong> <span id="modal-series"></span></p>
+                                    <p><strong>Длительность:</strong> <span id="modal-time"></span> мин</p>
+                                    <p><strong>Описание:</strong> <span id="modal-description"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-area">
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 align-self-center">
+                        <p class="copyright-text">
+                            &copy; Copyright <span id="date"></span> Anime Gallery. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 align-self-center">
+                        <ul class="footer-social">
+                            <li><a href="#"><i class="fab fa-square-facebook"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.appear.min.js"></script>
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/counter-up.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Вызов функции при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            setRandomBackground();
+            loadData(animeYears, 'anime');
+        });
+
+        // Добавление обработчиков событий
+        document.getElementById('search-input').addEventListener('input', applyFilters);
+        document.getElementById('type-filter').addEventListener('change', applyFilters);
+        document.getElementById('year-filter').addEventListener('change', applyFilters);
+        document.getElementById('sort-filter').addEventListener('change', applyFilters);
+        document.getElementById('apply-filter').addEventListener('click', applyFilters);
+    </script>
+</body>
+
+</html>
