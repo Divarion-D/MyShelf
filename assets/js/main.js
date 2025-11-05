@@ -1,7 +1,7 @@
 const animeYears = [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2012, 2011, 2010, 2009, 2008, 2006, 2004, 2003, 2001, 1995, 1988]; // Массив годов для загрузки JSON файлов
 let allData = []; // Хранит все аниме
 let filteredAnimeSeries = []; // Хранит отфильтрованные аниме сериалы
-let filteredAnimeMovies = []; // Хранит отфильтрованные аниме фильмы=
+let filteredAnimeMovies = []; // Хранит отфильтрованные аниме фильмы
 
 const homeItemsPerPage = 10; // Количество элементов на главной странице
 const animeItemsPerPage = 20; // Количество элементов на аниме странице
@@ -154,8 +154,8 @@ async function loadData(years, type) {
             console.error(`Error loading ${year}.json:`, error);
         }
     }
-    filteredAnimeMovies = allData.filter(anime => (anime.series || 0) <= 1);
-    filteredAnimeSeries = allData.filter(anime => (anime.series || 0) > 1);
+    filteredAnimeMovies = allData.filter(anime => (anime.movie || 0) == 1);
+    filteredAnimeSeries = allData.filter(anime => (anime.series || 0) >= 1);
 
     if (type == 'home') {
         renderGallery(filteredAnimeMovies, 'movie', 'home');
@@ -174,6 +174,7 @@ async function loadData(years, type) {
 function renderGallery(animeList, type, page) {
     const gallery = document.getElementById(type === 'movie' ? 'movie-gallery' : 'series-gallery');
     let paginatedData = [];
+    let shuffleData = [];
     if (!gallery) return;
     gallery.innerHTML = '';
 
@@ -183,7 +184,8 @@ function renderGallery(animeList, type, page) {
     }
 
     if (page == 'home') {
-        paginatedData = animeList.slice(0, homeItemsPerPage);
+        shuffleData = shuffleArray(animeList);
+        paginatedData = shuffleData.slice(0, homeItemsPerPage);
     } else {
         // Вычисление индексов для текущей страницы
         const startIndex = (currentPage - 1) * animeItemsPerPage;
@@ -194,7 +196,7 @@ function renderGallery(animeList, type, page) {
     paginatedData.forEach(anime => {
         const item = document.createElement('div');
         item.innerHTML = `
-                ${type === 'series' ? `<span class="movie-episode">EPS<small>${anime.series || 0}</small></span>` : ''}
+                ${(anime.series || 0) >= 1 ? `<span class="movie-episode">EPS<small>${anime.series || 0}</small></span>` : ''}
                 <div class="movie-img">
                     <img src="${anime.img}" alt="${anime.name}">
                     <a href="#" class="movie-play"><i class="icon-play-3"></i></a>
@@ -428,8 +430,8 @@ function applyFilters() {
 
         // Фильтр по типу (предполагаем: series > 1 - сериал, иначе фильм)
         const matchesType = typeFilter === 'any' ||
-            (typeFilter === 'series' && anime.series > 1) ||
-            (typeFilter === 'movie' && anime.series <= 1);
+            (typeFilter === 'series' && (anime.series || 0) >= 1) ||
+            (typeFilter === 'movie' && (anime.movie || 0) == 1);
 
         // Фильтр по году
         const animeYear = new Date(anime.date).getFullYear().toString();
@@ -500,3 +502,13 @@ document.querySelectorAll('input[name="type"]').forEach(checkbox => {
         applyFilters();
     });
 });
+
+// Перемешивание масива алгоритмом Фишера-Йейтса
+function shuffleArray(array) {
+    const shuffled = [...array]; // создаем копию массива
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // меняем местами
+    }
+    return shuffled;
+}
