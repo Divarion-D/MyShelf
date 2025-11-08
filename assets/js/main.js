@@ -154,8 +154,8 @@ async function loadData(years, type) {
             console.error(`Error loading ${year}.json:`, error);
         }
     }
-    filteredAnimeMovies = allData.filter(anime => (anime.movie || 0) == 1);
-    filteredAnimeSeries = allData.filter(anime => (anime.series || 0) >= 1);
+    filteredAnimeMovies = allData.filter(anime => anime.movie == 1);
+    filteredAnimeSeries = allData.filter(anime => anime.movie == 0);
 
     if (type == 'home') {
         renderGallery(filteredAnimeMovies, 'movie', 'home');
@@ -430,8 +430,8 @@ function applyFilters() {
 
         // Фильтр по типу (предполагаем: series > 1 - сериал, иначе фильм)
         const matchesType = typeFilter === 'any' ||
-            (typeFilter === 'series' && (anime.series || 0) >= 1) ||
-            (typeFilter === 'movie' && (anime.movie || 0) == 1);
+            (typeFilter === 'series' && anime.movie == 0) ||
+            (typeFilter === 'movie' && anime.movie == 1);
 
         // Фильтр по году
         const animeYear = new Date(anime.date).getFullYear().toString();

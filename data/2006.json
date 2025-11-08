@@ -7,6 +7,8 @@
         "img": "data/img/anime/941.jpg",
         "description": "",
         "time": "23",
-        "series": 12
+        "series": 12,
+        "movie": 0,
+        "genre": ""
     }
 ]
