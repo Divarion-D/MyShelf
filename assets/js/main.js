@@ -489,6 +489,7 @@ function shuffleArray(array) {
     return shuffled;
 }
 
+// Безопасное добавление обработчика события
 function safeAddEvent(id, event, handler) {
     const el = document.getElementById(id);
     if (el) el.addEventListener(event, handler);
