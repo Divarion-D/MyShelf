@@ -200,10 +200,10 @@ function renderGallery(dataList, galleryType, pageType) {
             ${eps}
             <div class="movie-img">
                 <img src="${item.img}" alt="${item.name}">
-                <a href="#" class="movie-play"><i class="icon-play-3"></i></a>
+                <a class="movie-play"><i class="icon-play-3"></i></a>
             </div>
             <div class="movie-content">
-                <h6 class="movie-title"><a href="#">${item.name}${status}</a></h6>
+                <h6 class="movie-title"><span class="title-link">${item.name}${status}</span></h6>
                 <div class="movie-info">
                     <span class="movie-time">${item.time || 'N/A'} мин</span>
                 </div>

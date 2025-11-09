@@ -1499,7 +1499,7 @@ label {
     margin-top: 2px
 }
 
-.movie-item .movie-title a {
+.movie-item .movie-title .title-link {
     color: var(--heading-color);
     width: 100%;
     overflow: hidden;
@@ -1507,11 +1507,14 @@ label {
     text-overflow: ellipsis;
     letter-spacing: .8px;
     font-weight: 600;
-    font-size: 18px
+    font-size: 18px;
+    display: block;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.movie-item .movie-title a:hover {
-    color: var(--theme-color)
+.movie-item .movie-title .title-link:hover {
+    color: var(--theme-color);
 }
 
 .movie-item .movie-season,
@@ -1660,7 +1663,7 @@ label {
         margin-top: 5px
     }
 
-    .movie-item .movie-title a {
+    .movie-item .movie-title .title-link  {
         font-size: 16px
     }
 
