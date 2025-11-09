@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Просммотреное аниме">
-    <meta name="keywords" content="аниме, сериалы, анимация">
+    <meta name="description" content="Просммотреное">
+    <meta name="keywords" content="аниме, сериалы, фильмы">
 
-    <title>Anime</title>
+    <title>Watched</title>
 
     <link rel="icon" type="image/x-icon" href="assets/img/logo/favicon.png">
 
@@ -60,10 +60,10 @@
     <main class="main">
         <div class="site-breadcrumb">
             <div class="container">
-                <h2 class="breadcrumb-title">Anime</h2>
+                <h2 class="breadcrumb-title" id="page-title">View</h2>
                 <ul class="breadcrumb-menu">
                     <li><a href="index.html">Home</a></li>
-                    <li class="active">Anime</li>
+                    <li class="active" id="breadcrumb-title">View</li>
                 </ul>
             </div>
         </div>
@@ -203,21 +203,6 @@
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/jquery.nice-select.min.js"></script>
     <script src="assets/js/main.js"></script>
-
-    <script>
-        // Вызов функции при загрузке страницы
-        document.addEventListener('DOMContentLoaded', () => {
-            setRandomBackground();
-            loadData(animeYears, 'anime');
-        });
-
-        // Добавление обработчиков событий
-        document.getElementById('search-input').addEventListener('input', applyFilters);
-        document.getElementById('type-filter').addEventListener('change', applyFilters);
-        document.getElementById('year-filter').addEventListener('change', applyFilters);
-        document.getElementById('sort-filter').addEventListener('change', applyFilters);
-        document.getElementById('apply-filter').addEventListener('click', applyFilters);
-    </script>
 </body>
 
 </html>
