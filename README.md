@@ -86,6 +86,7 @@ const categories = {
 | Функция | Описание |
 |-------|--------|
 | `renderGallery(data, type, pageType)` | Рендерит карточки |
+| `headerMenu(category)` | Рендерит меню в navbar |
 | `renderPagination(list)` | Создаёт пагинацию |
 | `applyFilters()` | Фильтры: поиск, тип, год, сортировка |
 

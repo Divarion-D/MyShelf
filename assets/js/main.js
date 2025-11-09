@@ -177,7 +177,7 @@ async function loadData({ category, isPlanned, pageType }) {
     }
 }
 
-// === РЕНДЕР И ПАГИНАЦИЯ ===
+// === РЕНДЕР HTML===
 function renderGallery(dataList, galleryType, pageType) {
     const gallery = document.getElementById(galleryType + '-gallery');
     if (!gallery) return;
@@ -219,6 +219,36 @@ function renderGallery(dataList, galleryType, pageType) {
 
         gallery.appendChild(card);
     });
+}
+
+// Динамическое меню в navbar
+function headerMenu(category) {
+    const menuContainer = document.getElementById('category-menu');
+    if (menuContainer && category) {
+        const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+
+        menuContainer.innerHTML = `
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    ${categoryName}
+                </a>
+                <ul class="dropdown-menu fade-down">
+                    <li>
+                        <a class="dropdown-item" 
+                           href="watched.html?category=${category}&view=watched">
+                            Просмотрено
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" 
+                           href="watched.html?category=${category}&view=planned">
+                            Запланировано
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        `;
+    }
 }
 
 // Инициализация / реинициализация Owl Carousel
@@ -468,6 +498,8 @@ function safeAddEvent(id, event, handler) {
 document.addEventListener('DOMContentLoaded', () => {
     const ctx = getPageContext();
     const { pageType, category, isPlanned } = ctx;
+
+    headerMenu(category);
 
     // Фон
     if (backgrounds[category]) {

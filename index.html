@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Anime gallery with movies and series">
+    <meta name="description" content="The list of viewed and scheduled">
     <meta name="keywords" content="anime, gallery, movies, series">
 
-    <title>Anime Gallery</title>
+    <title>Watch List</title>
 
     <link rel="icon" type="image/x-icon" href="assets/img/logo/favicon.png">
 
@@ -42,6 +42,9 @@
                         </div>
                     </div>
                     <div class="collapse navbar-collapse" id="main_nav">
+                        <ul class="navbar-nav" id="category-menu">
+                            <!-- Меню будет сгенерировано динамически -->
+                        </ul>
                         <div class="nav-right">
                             <div class="color-mode theme-mode-control">
                                 <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
@@ -117,6 +120,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
     <footer class="footer-area">
@@ -125,13 +129,12 @@
                 <div class="row">
                     <div class="col-md-6 align-self-center">
                         <p class="copyright-text">
-                            &copy; Copyright <span id="date"></span> <a href="index.html#"> moplay </a> All Rights
-                            Reserved.
+                            &copy; Copyright <span id="date"></span> All Rights Reserved.
                         </p>
                     </div>
                     <div class="col-md-6 align-self-center">
                         <ul class="footer-social">
-                            <li><a href="index.html#"><i class="fab fa-vk"></i></a></li>
+                            <!-- <li><a href="index.html#"><i class="fab fa-vk"></i></a></li> -->;
                         </ul>
                     </div>
                 </div>
@@ -139,9 +142,7 @@
         </div>
     </footer>
 
-
-    <a href="index.html#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
-
+    <a id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/js/modernizr.min.js"></script>
@@ -155,7 +156,6 @@
     <script src="assets/js/counter-up.js"></script>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/main.js"></script>
-
 </body>
 
 </html>
