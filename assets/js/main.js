@@ -112,7 +112,7 @@ function getPageContext() {
     let category = defaultCategory;
     let isPlanned = false;
 
-    if (!path.includes('index.html')) {
+    if (!path.includes('index.html') && !path.includes('')) {
         pageType = 'category';
     }
 
