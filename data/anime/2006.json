@@ -6,9 +6,16 @@
         "date": "2006-04-04",
         "img": "data/img/anime/941.jpg",
         "description": "",
+        "genres": [
+            "Комедия",
+            "Этти",
+            "CGDCT",
+            "Гэг-юмор",
+            "Пародия",
+            "Вампиры"
+        ],
         "time": "23",
         "series": 12,
-        "movie": 0,
-        "genre": ""
+        "movie": "0"
     }
 ]
