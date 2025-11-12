@@ -171,9 +171,7 @@ function getPageContext() {
     let category = defaultCategory;
     let isPlanned = false;
 
-    if (path.endsWith('index.html') || path === '/' || path === '') {
-        pageType = 'home';
-    } else {
+    if (path.endsWith('watched.html')) {
         pageType = 'category';
     }
 
