@@ -11,6 +11,10 @@ let currentPage = 1;
 let allData = [];
 let filteredData = [];
 
+// === КЭШИРОВАНИЕ В localStorage С TTL ===
+const CACHE_PREFIX = 'anime_cache_';
+const CACHE_TTL = 7 * 24 * 60 * 60 * 1000; // 7 дней в миллисекундах
+
 // Фоны
 const backgrounds = {
     anime: [
@@ -101,6 +105,61 @@ const backgrounds = {
     }
 })(jQuery);
 
+function setCache(key, data) {
+    const cacheData = {
+        data: data,
+        timestamp: Date.now()
+    };
+    try {
+        localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(cacheData));
+    } catch (e) {
+        console.warn('Не удалось сохранить в localStorage (возможно, переполнение)', e);
+        // Можно добавить очистку старых записей
+        clearOldCache();
+    }
+}
+
+function getCache(key) {
+    const item = localStorage.getItem(CACHE_PREFIX + key);
+    if (!item) return null;
+
+    try {
+        const cacheData = JSON.parse(item);
+        const now = Date.now();
+
+        // Проверяем, не истёк ли TTL
+        if (now - cacheData.timestamp > CACHE_TTL) {
+            localStorage.removeItem(CACHE_PREFIX + key);
+            return null;
+        }
+
+        return cacheData.data;
+    } catch (e) {
+        console.warn('Ошибка чтения кэша', e);
+        localStorage.removeItem(CACHE_PREFIX + key);
+        return null;
+    }
+}
+
+function clearOldCache() {
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && $key.startsWith(CACHE_PREFIX)) {
+            const item = localStorage.getItem(key);
+            try {
+                const cacheData = JSON.parse(item);
+                if (Date.now() - cacheData.timestamp > CACHE_TTL) {
+                    localStorage.removeItem(key);
+                    i--; // важно: после remove индекс сдвигается
+                }
+            } catch (e) {
+                localStorage.removeItem(key);
+                i--;
+            }
+        }
+    }
+}
+
 // === ОПРЕДЕЛЕНИЕ СТРАНИЦЫ И КАТЕГОРИИ ===
 function getPageContext() {
     const path = window.location.pathname.toLowerCase();
@@ -137,31 +196,56 @@ async function loadData({ category, isPlanned, pageType }) {
 
     const { years, hasPlanned } = categories[category];
 
-    // Загрузка просмотренного
+    // === Загрузка просмотренного (по годам) ===
     if (!isPlanned) {
         for (const year of years) {
-            try {
-                const res = await fetch(`data/${category}/${year}.json`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data)) allData = allData.concat(data);
+            const cacheKey = `${category}_${year}`;
+            let data = getCache(cacheKey);
+
+            if (!data) {
+                try {
+                    const res = await fetch(`data/${category}/${year}.json?t=${Date.now()}`); // cache-buster
+                    if (res.ok) {
+                        data = await res.json();
+                        if (Array.isArray(data)) {
+                            setCache(cacheKey, data);
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`Failed to load ${year}.json for ${category}`, e);
+                    continue;
                 }
-            } catch (e) { console.warn(`Failed to load ${year}.json for ${category}`); }
+            }
+
+            if (Array.isArray(data)) {
+                allData = allData.concat(data);
+            }
         }
     }
 
-    // Загрузка запланированного
+    // === Загрузка запланированного ===
     if (hasPlanned && (isPlanned || pageType === 'home')) {
-        try {
-            const res = await fetch(`data/${category}/planned.json`);
-            if (res.ok) {
-                const data = await res.json();
-                if (Array.isArray(data)) {
-                    data.forEach(item => item.isPlanned = true);
-                    allData = allData.concat(data);
+        const cacheKey = `${category}_planned`;
+        let data = getCache(cacheKey);
+
+        if (!data) {
+            try {
+                const res = await fetch(`data/${category}/planned.json?t=${Date.now()}`);
+                if (res.ok) {
+                    data = await res.json();
+                    if (Array.isArray(data)) {
+                        setCache(cacheKey, data);
+                    }
                 }
+            } catch (e) {
+                console.warn(`Failed to load planned.json for ${category}`, e);
             }
-        } catch (e) { console.warn(`Failed to load planned.json for ${category}`); }
+        }
+
+        if (Array.isArray(data)) {
+            data.forEach(item => item.isPlanned = true);
+            allData = allData.concat(data);
+        }
     }
 
     if (pageType === 'home') {
