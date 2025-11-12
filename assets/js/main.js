@@ -112,7 +112,9 @@ function getPageContext() {
     let category = defaultCategory;
     let isPlanned = false;
 
-    if (!path.includes('index.html') && !path.includes('')) {
+    if (path.endsWith('index.html') || path === '/' || path === '') {
+        pageType = 'home';
+    } else {
         pageType = 'category';
     }
 
@@ -162,8 +164,6 @@ async function loadData({ category, isPlanned, pageType }) {
         } catch (e) { console.warn(`Failed to load planned.json for ${category}`); }
     }
 
-    filteredData = allData;
-
     if (pageType === 'home') {
         const movies = allData.filter(i => i.movie == 1 && !i.isPlanned);
         const series = allData.filter(i => i.movie == 0 && !i.isPlanned);
@@ -172,8 +172,8 @@ async function loadData({ category, isPlanned, pageType }) {
         initMovieCarousel('movie');
         initMovieCarousel('series');
     } else {
-        renderGallery(filteredData, 'series', 'category');
-        renderPagination(filteredData);
+        renderGallery(allData, 'series', 'category');
+        renderPagination(allData);
     }
 }
 
