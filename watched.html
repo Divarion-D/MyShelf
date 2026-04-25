@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Watched">
-    <meta name="keywords" content="anime, gallery, movies, series">
+    <meta name="description" content="MyShelf — каталог просмотренного и запланированного контента">
+    <meta name="keywords" content="myshelf, anime, cartoons, movies, series, manga, books, shelf">
 
     <title>MyShelf</title>
 
@@ -82,7 +82,7 @@
                             <form action="#">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="search-input"
-                                        placeholder="Поиск аниме...">
+                                        placeholder="Поиск по полке...">
                                     <button type="button"><i class="icon-search"></i></button>
                                 </div>
                             </form>
@@ -95,8 +95,6 @@
                                     <div class="filter-select">
                                         <select class="select" id="type-filter">
                                             <option value="any">Тип</option>
-                                            <option value="movie">Фильм</option>
-                                            <option value="series">Сериал</option>
                                         </select>
                                     </div>
                                     <div class="filter-select">
@@ -130,7 +128,7 @@
         <div class="movie-area py-80">
             <div class="container">
                 <div class="row row-cols-xl-5" id="series-gallery">
-                    <!-- Карточки аниме будут добавлены динамически -->
+                    <!-- Карточки будут добавлены динамически -->
                 </div>
 
                 <div class="pagination-area mt-20">
@@ -161,9 +159,11 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="info-container">
-                                    <p><strong>Дата выпуска:</strong> <span id="modal-date"></span></p>
-                                    <p><strong>Количество серий:</strong> <span id="modal-series"></span></p>
-                                    <p><strong>Длительность:</strong> <span id="modal-time"></span> мин</p>
+                                    <p><strong>Категория:</strong> <span id="modal-category"></span></p>
+                                    <p><strong>Тип:</strong> <span id="modal-type"></span></p>
+                                    <p><strong>Дата:</strong> <span id="modal-date"></span></p>
+                                    <p><strong>Эпизоды / главы:</strong> <span id="modal-series"></span></p>
+                                    <p><strong>Длительность / объем:</strong> <span id="modal-time"></span></p>
                                     <p><strong>Описание:</strong> <span id="modal-description"></span></p>
                                 </div>
                             </div>

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 950001,
+    "name": "Iron Path",
+    "originalName": "Iron Path",
+    "date": "2026-01-02",
+    "img": "data/img/manga/950001.svg",
+    "description": "Action manga with long arc.",
+    "time": "12 volumes",
+    "series": 12,
+    "mediaType": "manga",
+    "category": "manga"
+  },
+  {
+    "id": 950002,
+    "name": "Night Script",
+    "originalName": "Night Script",
+    "date": "2026-02-08",
+    "img": "data/img/manga/950002.svg",
+    "description": "Mystery manga in urban setting.",
+    "time": "8 volumes",
+    "series": 8,
+    "mediaType": "manga",
+    "category": "manga"
+  },
+  {
+    "id": 950003,
+    "name": "Quiet Valley",
+    "originalName": "Quiet Valley",
+    "date": "2026-03-12",
+    "img": "data/img/manga/950003.svg",
+    "description": "Slice of life manga.",
+    "time": "6 volumes",
+    "series": 6,
+    "mediaType": "manga",
+    "category": "manga"
+  },
+  {
+    "id": 950004,
+    "name": "Arc Lamp",
+    "originalName": "Arc Lamp",
+    "date": "2026-04-06",
+    "img": "data/img/manga/950004.svg",
+    "description": "Sci-fi manga anthology.",
+    "time": "5 volumes",
+    "series": 5,
+    "mediaType": "manga",
+    "category": "manga"
+  },
+  {
+    "id": 950005,
+    "name": "Stone Harbor",
+    "originalName": "Stone Harbor",
+    "date": "2026-05-25",
+    "img": "data/img/manga/950005.svg",
+    "description": "Historical adventure manga.",
+    "time": "9 volumes",
+    "series": 9,
+    "mediaType": "manga",
+    "category": "manga"
+  }
+]

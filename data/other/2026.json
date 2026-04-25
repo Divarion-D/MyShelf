@@ -1,0 +1,58 @@
+[
+  {
+    "id": 970001,
+    "name": "Film Editing Course",
+    "originalName": "Film Editing Course",
+    "date": "2026-01-13",
+    "img": "data/img/other/970001.svg",
+    "description": "Online course about editing workflow.",
+    "time": "14 hours",
+    "mediaType": "other",
+    "category": "other"
+  },
+  {
+    "id": 970002,
+    "name": "Game Dev Workshop",
+    "originalName": "Game Dev Workshop",
+    "date": "2026-02-28",
+    "img": "data/img/other/970002.svg",
+    "description": "Workshop recordings and notes.",
+    "time": "9 hours",
+    "mediaType": "other",
+    "category": "other"
+  },
+  {
+    "id": 970003,
+    "name": "Podcast Season A",
+    "originalName": "Podcast Season A",
+    "date": "2026-03-22",
+    "img": "data/img/other/970003.svg",
+    "description": "Interview podcast collection.",
+    "time": "20 episodes",
+    "series": 20,
+    "mediaType": "other",
+    "category": "other"
+  },
+  {
+    "id": 970004,
+    "name": "Photo Journal 2026",
+    "originalName": "Photo Journal 2026",
+    "date": "2026-04-18",
+    "img": "data/img/other/970004.svg",
+    "description": "Curated photo set.",
+    "time": "150 photos",
+    "mediaType": "other",
+    "category": "other"
+  },
+  {
+    "id": 970005,
+    "name": "Reference Pack",
+    "originalName": "Reference Pack",
+    "date": "2026-05-26",
+    "img": "data/img/other/970005.svg",
+    "description": "Mixed reference material.",
+    "time": "1.2 GB",
+    "mediaType": "other",
+    "category": "other"
+  }
+]

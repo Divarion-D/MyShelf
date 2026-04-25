@@ -1,0 +1,57 @@
+[
+  {
+    "id": 940001,
+    "name": "Glass Tower",
+    "originalName": "Glass Tower",
+    "date": "2026-01-07",
+    "img": "data/img/movie/940001.svg",
+    "description": "Corporate thriller movie.",
+    "time": "118 min",
+    "mediaType": "movie",
+    "category": "movie"
+  },
+  {
+    "id": 940002,
+    "name": "Beyond Track",
+    "originalName": "Beyond Track",
+    "date": "2026-02-16",
+    "img": "data/img/movie/940002.svg",
+    "description": "Sports drama with comeback story.",
+    "time": "125 min",
+    "mediaType": "movie",
+    "category": "movie"
+  },
+  {
+    "id": 940003,
+    "name": "Old City Rain",
+    "originalName": "Old City Rain",
+    "date": "2026-03-09",
+    "img": "data/img/movie/940003.svg",
+    "description": "Noir detective feature.",
+    "time": "109 min",
+    "mediaType": "movie",
+    "category": "movie"
+  },
+  {
+    "id": 940004,
+    "name": "Parallel Room",
+    "originalName": "Parallel Room",
+    "date": "2026-04-13",
+    "img": "data/img/movie/940004.svg",
+    "description": "Sci-fi puzzle narrative.",
+    "time": "132 min",
+    "mediaType": "movie",
+    "category": "movie"
+  },
+  {
+    "id": 940005,
+    "name": "Final Coast",
+    "originalName": "Final Coast",
+    "date": "2026-05-21",
+    "img": "data/img/movie/940005.svg",
+    "description": "Adventure road movie.",
+    "time": "114 min",
+    "mediaType": "movie",
+    "category": "movie"
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "id": 960101,
+    "name": "The Quiet Meridian",
+    "originalName": "The Quiet Meridian",
+    "date": "2026-06-05",
+    "description": "Literary novel about grief and mapmaking.",
+    "time": "352 pages",
+    "mediaType": "book",
+    "category": "book",
+    "img": "data/img/book/960101.svg"
+  },
+  {
+    "id": 960102,
+    "name": "Deep Archive",
+    "originalName": "Deep Archive",
+    "date": "2026-06-24",
+    "description": "Science fiction novel set in a submerged library.",
+    "time": "410 pages",
+    "mediaType": "book",
+    "category": "book",
+    "img": "data/img/book/960102.svg"
+  },
+  {
+    "id": 960103,
+    "name": "Furnace Street",
+    "originalName": "Furnace Street",
+    "date": "2026-07-13",
+    "description": "Industrial noir with intersecting city lives.",
+    "time": "288 pages",
+    "mediaType": "book",
+    "category": "book",
+    "img": "data/img/book/960103.svg"
+  },
+  {
+    "id": 960104,
+    "name": "A Manual for Rain",
+    "originalName": "A Manual for Rain",
+    "date": "2026-08-09",
+    "description": "Essay collection about weather, cities and memory.",
+    "time": "236 pages",
+    "mediaType": "book",
+    "category": "book",
+    "img": "data/img/book/960104.svg"
+  },
+  {
+    "id": 960105,
+    "name": "Signal Orchard",
+    "originalName": "Signal Orchard",
+    "date": "2026-09-01",
+    "description": "Speculative fiction novel around a coded fruit farm.",
+    "time": "324 pages",
+    "mediaType": "book",
+    "category": "book",
+    "img": "data/img/book/960105.svg"
+  }
+]

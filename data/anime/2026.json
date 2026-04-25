@@ -1,0 +1,65 @@
+[
+  {
+    "id": 910001,
+    "name": "Neon Harbor",
+    "originalName": "Neon Harbor",
+    "date": "2026-01-11",
+    "description": "Cyberpunk anime series about divers of a flooded megacity.",
+    "time": "24 min",
+    "series": 12,
+    "movie": "0",
+    "mediaType": "series",
+    "category": "anime",
+    "img": "data/img/anime/910001.svg"
+  },
+  {
+    "id": 910002,
+    "name": "Winter Signal",
+    "originalName": "Winter Signal",
+    "date": "2026-02-14",
+    "description": "Suspense anime about a mysterious radio station in the mountains.",
+    "time": "23 min",
+    "series": 10,
+    "movie": "0",
+    "mediaType": "series",
+    "category": "anime",
+    "img": "data/img/anime/910002.svg"
+  },
+  {
+    "id": 910003,
+    "name": "Paper Moon Route",
+    "originalName": "Paper Moon Route",
+    "date": "2026-03-08",
+    "description": "Coming-of-age road anime with a hand-crafted visual style.",
+    "time": "109 min",
+    "movie": "1",
+    "mediaType": "movie",
+    "category": "anime",
+    "img": "data/img/anime/910003.svg"
+  },
+  {
+    "id": 910004,
+    "name": "Ashen Choir",
+    "originalName": "Ashen Choir",
+    "date": "2026-04-19",
+    "description": "Dark fantasy anime series about singers sealing ancient ruins.",
+    "time": "25 min",
+    "series": 13,
+    "movie": "0",
+    "mediaType": "series",
+    "category": "anime",
+    "img": "data/img/anime/910004.svg"
+  },
+  {
+    "id": 910005,
+    "name": "Orbit Letter",
+    "originalName": "Orbit Letter",
+    "date": "2026-05-24",
+    "description": "Sci-fi feature anime about delayed messages from orbit.",
+    "time": "118 min",
+    "movie": "1",
+    "mediaType": "movie",
+    "category": "anime",
+    "img": "data/img/anime/910005.svg"
+  }
+]

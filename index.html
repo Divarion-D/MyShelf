@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The list of viewed and scheduled">
-    <meta name="keywords" content="anime, gallery, movies, series">
+    <meta name="description" content="MyShelf — личная полка для фильмов, сериалов, аниме, манги, книг и другого контента">
+    <meta name="keywords" content="myshelf, anime, cartoons, movies, series, manga, books, shelf">
 
     <title>MyShelf</title>
 
@@ -62,33 +62,62 @@
         </div>
     </header>
     <main class="main">
+        <section class="home-overview pt-70">
+            <div class="container">
+                <div class="home-overview-grid">
+                    <div class="home-overview-main">
+                        <span class="home-overview-kicker">MyShelf</span>
+                        <h1 class="home-overview-title" id="home-overview-title">Моя полка</h1>
+                        <p class="home-overview-text" id="home-overview-text">
+                            Смотри историю просмотров, веди планы и переключайся между категориями в один клик.
+                        </p>
+                        <div class="home-category-switch" id="home-category-switch"></div>
+                    </div>
+                    <div class="home-overview-stats">
+                        <div class="home-stat-card">
+                            <span class="home-stat-value" id="home-stat-total">0</span>
+                            <span class="home-stat-label">Всего в категории</span>
+                        </div>
+                        <div class="home-stat-card">
+                            <span class="home-stat-value" id="home-stat-watched">0</span>
+                            <span class="home-stat-label">Просмотрено</span>
+                        </div>
+                        <div class="home-stat-card">
+                            <span class="home-stat-value" id="home-stat-planned">0</span>
+                            <span class="home-stat-label">В планах</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="movie-area pt-70">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="site-heading-inline">
-                            <h2 class="site-title">Anime Movies</h2>
-                            <a href="watched.html?category=anime&view=watched" class="theme-btn">View All<i class="far fa-angles-right"></i></a>
+                            <h2 class="site-title" id="home-watched-title">Просмотрено</h2>
+                            <a href="watched.html?category=anime&view=watched" class="theme-btn" id="home-watched-link">Открыть всё<i class="far fa-angles-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="movie-slider owl-carousel owl-theme" id="movie-gallery">
-                    <!-- Фильмы будут добавлены динамически -->
+                    <!-- Карточки будут добавлены динамически -->
                 </div>
             </div>
         </div>
-        <div class="movie-area pt-70 pb-90">
+        <div class="movie-area pt-70 pb-90" id="home-planned-section">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="site-heading-inline">
-                            <h2 class="site-title">Anime Series</h2>
-                            <a href="watched.html?category=anime&view=watched" class="theme-btn">View All<i class="far fa-angles-right"></i></a>
+                            <h2 class="site-title" id="home-planned-title">В планах</h2>
+                            <a href="watched.html?category=anime&view=planned" class="theme-btn" id="home-planned-link">Открыть всё<i class="far fa-angles-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="movie-slider owl-carousel owl-theme" id="series-gallery">
-                    <!-- Фильмы будут добавлены динамически -->
+                    <!-- Карточки будут добавлены динамически -->
                 </div>
             </div>
         </div>
@@ -111,9 +140,11 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="info-container">
-                                    <p><strong>Дата выпуска:</strong> <span id="modal-date"></span></p>
-                                    <p><strong>Количество серий:</strong> <span id="modal-series"></span></p>
-                                    <p><strong>Длительность:</strong> <span id="modal-time"></span> мин</p>
+                                    <p><strong>Категория:</strong> <span id="modal-category"></span></p>
+                                    <p><strong>Тип:</strong> <span id="modal-type"></span></p>
+                                    <p><strong>Дата:</strong> <span id="modal-date"></span></p>
+                                    <p><strong>Эпизоды / главы:</strong> <span id="modal-series"></span></p>
+                                    <p><strong>Длительность / объем:</strong> <span id="modal-time"></span></p>
                                     <p><strong>Описание:</strong> <span id="modal-description"></span></p>
                                 </div>
                             </div>

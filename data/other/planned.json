@@ -1,0 +1,59 @@
+[
+  {
+    "id": 970101,
+    "name": "Sound Design Lab",
+    "originalName": "Sound Design Lab",
+    "date": "2026-06-07",
+    "description": "Course on cinematic sound layering and ambience.",
+    "time": "11 hours",
+    "mediaType": "other",
+    "category": "other",
+    "img": "data/img/other/970101.svg"
+  },
+  {
+    "id": 970102,
+    "name": "Storyboard Sprint",
+    "originalName": "Storyboard Sprint",
+    "date": "2026-06-26",
+    "description": "Workshop archive focused on rapid visual storytelling.",
+    "time": "6 hours",
+    "mediaType": "other",
+    "category": "other",
+    "img": "data/img/other/970102.svg"
+  },
+  {
+    "id": 970103,
+    "name": "Photo Notes Vol. 2",
+    "originalName": "Photo Notes Vol. 2",
+    "date": "2026-07-18",
+    "description": "Curated travel photo reference pack.",
+    "time": "220 photos",
+    "series": 220,
+    "mediaType": "other",
+    "category": "other",
+    "img": "data/img/other/970103.svg"
+  },
+  {
+    "id": 970104,
+    "name": "Edit Room Podcast",
+    "originalName": "Edit Room Podcast",
+    "date": "2026-08-14",
+    "description": "Interview series with editors and sound mixers.",
+    "time": "18 episodes",
+    "series": 18,
+    "mediaType": "other",
+    "category": "other",
+    "img": "data/img/other/970104.svg"
+  },
+  {
+    "id": 970105,
+    "name": "Reference Vault",
+    "originalName": "Reference Vault",
+    "date": "2026-09-06",
+    "description": "Mixed pack of scans, notes and production references.",
+    "time": "1.8 GB",
+    "mediaType": "other",
+    "category": "other",
+    "img": "data/img/other/970105.svg"
+  }
+]

@@ -1,0 +1,61 @@
+[
+  {
+    "id": 920001,
+    "name": "Cloudy Street",
+    "originalName": "Cloudy Street",
+    "date": "2026-01-15",
+    "img": "data/img/cartoon/920001.svg",
+    "description": "Family cartoon with short adventures.",
+    "time": "22",
+    "series": 20,
+    "mediaType": "cartoon",
+    "category": "cartoon"
+  },
+  {
+    "id": 920002,
+    "name": "Mini Mechanics",
+    "originalName": "Mini Mechanics",
+    "date": "2026-02-12",
+    "img": "data/img/cartoon/920002.svg",
+    "description": "Educational cartoon about inventions.",
+    "time": "18",
+    "series": 16,
+    "mediaType": "cartoon",
+    "category": "cartoon"
+  },
+  {
+    "id": 920003,
+    "name": "Forest Club",
+    "originalName": "Forest Club",
+    "date": "2026-03-03",
+    "img": "data/img/cartoon/920003.svg",
+    "description": "Comedy cartoon for all ages.",
+    "time": "21",
+    "series": 24,
+    "mediaType": "cartoon",
+    "category": "cartoon"
+  },
+  {
+    "id": 920004,
+    "name": "Pixel Pets",
+    "originalName": "Pixel Pets",
+    "date": "2026-04-09",
+    "img": "data/img/cartoon/920004.svg",
+    "description": "Animated adventures in game world.",
+    "time": "20",
+    "series": 14,
+    "mediaType": "cartoon",
+    "category": "cartoon"
+  },
+  {
+    "id": 920005,
+    "name": "Moon Parade",
+    "originalName": "Moon Parade",
+    "date": "2026-05-27",
+    "img": "data/img/cartoon/920005.svg",
+    "description": "Feature cartoon with musical scenes.",
+    "time": "96 min",
+    "mediaType": "cartoon",
+    "category": "cartoon"
+  }
+]

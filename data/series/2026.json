@@ -1,0 +1,62 @@
+[
+  {
+    "id": 930001,
+    "name": "Northline",
+    "originalName": "Northline",
+    "date": "2026-01-19",
+    "img": "data/img/series/930001.svg",
+    "description": "Crime drama set near the border.",
+    "time": "52",
+    "series": 8,
+    "mediaType": "series",
+    "category": "series"
+  },
+  {
+    "id": 930002,
+    "name": "Silent Port",
+    "originalName": "Silent Port",
+    "date": "2026-02-22",
+    "img": "data/img/series/930002.svg",
+    "description": "Mystery thriller with slow burn pacing.",
+    "time": "48",
+    "series": 10,
+    "mediaType": "series",
+    "category": "series"
+  },
+  {
+    "id": 930003,
+    "name": "Second Shift",
+    "originalName": "Second Shift",
+    "date": "2026-03-14",
+    "img": "data/img/series/930003.svg",
+    "description": "Hospital drama focused on night team.",
+    "time": "45",
+    "series": 12,
+    "mediaType": "series",
+    "category": "series"
+  },
+  {
+    "id": 930004,
+    "name": "Cold Archive",
+    "originalName": "Cold Archive",
+    "date": "2026-04-17",
+    "img": "data/img/series/930004.svg",
+    "description": "Investigators reopen forgotten cases.",
+    "time": "50",
+    "series": 9,
+    "mediaType": "series",
+    "category": "series"
+  },
+  {
+    "id": 930005,
+    "name": "Wide Horizon",
+    "originalName": "Wide Horizon",
+    "date": "2026-05-30",
+    "img": "data/img/series/930005.svg",
+    "description": "Adventure mini series around the globe.",
+    "time": "55",
+    "series": 6,
+    "mediaType": "series",
+    "category": "series"
+  }
+]

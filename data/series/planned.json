@@ -1,0 +1,62 @@
+[
+  {
+    "id": 930101,
+    "name": "Harbor Nine",
+    "originalName": "Harbor Nine",
+    "date": "2026-06-04",
+    "description": "Investigation drama around a closed sea terminal.",
+    "time": "49",
+    "series": 8,
+    "mediaType": "series",
+    "category": "series",
+    "img": "data/img/series/930101.svg"
+  },
+  {
+    "id": 930102,
+    "name": "Motel Atlas",
+    "originalName": "Motel Atlas",
+    "date": "2026-06-23",
+    "description": "Anthology series tied together by one desert motel.",
+    "time": "52",
+    "series": 10,
+    "mediaType": "series",
+    "category": "series",
+    "img": "data/img/series/930102.svg"
+  },
+  {
+    "id": 930103,
+    "name": "Signal House",
+    "originalName": "Signal House",
+    "date": "2026-07-16",
+    "description": "Thriller series about intercepted emergency frequencies.",
+    "time": "46",
+    "series": 12,
+    "mediaType": "series",
+    "category": "series",
+    "img": "data/img/series/930103.svg"
+  },
+  {
+    "id": 930104,
+    "name": "North Glass",
+    "originalName": "North Glass",
+    "date": "2026-08-06",
+    "description": "Political drama in a remote research colony.",
+    "time": "55",
+    "series": 7,
+    "mediaType": "series",
+    "category": "series",
+    "img": "data/img/series/930104.svg"
+  },
+  {
+    "id": 930105,
+    "name": "After the Pier",
+    "originalName": "After the Pier",
+    "date": "2026-08-29",
+    "description": "Character drama about a family-owned ferry line.",
+    "time": "50",
+    "series": 9,
+    "mediaType": "series",
+    "category": "series",
+    "img": "data/img/series/930105.svg"
+  }
+]

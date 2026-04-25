@@ -1,0 +1,57 @@
+[
+  {
+    "id": 960001,
+    "name": "Signal and Snow",
+    "originalName": "Signal and Snow",
+    "date": "2026-01-05",
+    "img": "data/img/book/960001.svg",
+    "description": "Thriller novel.",
+    "time": "384 pages",
+    "mediaType": "book",
+    "category": "book"
+  },
+  {
+    "id": 960002,
+    "name": "Atlas of Quiet",
+    "originalName": "Atlas of Quiet",
+    "date": "2026-02-11",
+    "img": "data/img/book/960002.svg",
+    "description": "Contemporary fiction.",
+    "time": "276 pages",
+    "mediaType": "book",
+    "category": "book"
+  },
+  {
+    "id": 960003,
+    "name": "Borrowed Fire",
+    "originalName": "Borrowed Fire",
+    "date": "2026-03-19",
+    "img": "data/img/book/960003.svg",
+    "description": "Science fiction novel.",
+    "time": "412 pages",
+    "mediaType": "book",
+    "category": "book"
+  },
+  {
+    "id": 960004,
+    "name": "Paper Frontier",
+    "originalName": "Paper Frontier",
+    "date": "2026-04-15",
+    "img": "data/img/book/960004.svg",
+    "description": "Adventure book.",
+    "time": "340 pages",
+    "mediaType": "book",
+    "category": "book"
+  },
+  {
+    "id": 960005,
+    "name": "Small Machines",
+    "originalName": "Small Machines",
+    "date": "2026-05-09",
+    "img": "data/img/book/960005.svg",
+    "description": "Popular science.",
+    "time": "298 pages",
+    "mediaType": "book",
+    "category": "book"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 950101,
+    "name": "Mirror Wake",
+    "originalName": "Mirror Wake",
+    "date": "2026-06-03",
+    "description": "Mystery manga about memories reflected in flooded streets.",
+    "time": "7 volumes",
+    "series": 7,
+    "mediaType": "manga",
+    "category": "manga",
+    "img": "data/img/manga/950101.svg"
+  },
+  {
+    "id": 950102,
+    "name": "Copper Bloom",
+    "originalName": "Copper Bloom",
+    "date": "2026-06-21",
+    "description": "Steampunk manga centered on a botanical engineer.",
+    "time": "10 volumes",
+    "series": 10,
+    "mediaType": "manga",
+    "category": "manga",
+    "img": "data/img/manga/950102.svg"
+  },
+  {
+    "id": 950103,
+    "name": "Zero Harbor",
+    "originalName": "Zero Harbor",
+    "date": "2026-07-10",
+    "description": "Action manga about scavengers in a storm barrier zone.",
+    "time": "12 volumes",
+    "series": 12,
+    "mediaType": "manga",
+    "category": "manga",
+    "img": "data/img/manga/950103.svg"
+  },
+  {
+    "id": 950104,
+    "name": "Soft Static",
+    "originalName": "Soft Static",
+    "date": "2026-08-08",
+    "description": "Romance manga woven around pirate radio messages.",
+    "time": "5 volumes",
+    "series": 5,
+    "mediaType": "manga",
+    "category": "manga",
+    "img": "data/img/manga/950104.svg"
+  },
+  {
+    "id": 950105,
+    "name": "Paper Tide",
+    "originalName": "Paper Tide",
+    "date": "2026-09-05",
+    "description": "Historical manga about mapmakers chasing a lost current.",
+    "time": "8 volumes",
+    "series": 8,
+    "mediaType": "manga",
+    "category": "manga",
+    "img": "data/img/manga/950105.svg"
+  }
+]

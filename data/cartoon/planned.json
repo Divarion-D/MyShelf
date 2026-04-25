@@ -1,0 +1,60 @@
+[
+  {
+    "id": 920101,
+    "name": "Lantern Alley",
+    "originalName": "Lantern Alley",
+    "date": "2026-06-06",
+    "description": "Animated mystery about a hidden market between worlds.",
+    "time": "88 min",
+    "mediaType": "cartoon",
+    "category": "cartoon",
+    "img": "data/img/cartoon/920101.svg"
+  },
+  {
+    "id": 920102,
+    "name": "Cherry Circuit",
+    "originalName": "Cherry Circuit",
+    "date": "2026-06-19",
+    "description": "Comedy cartoon where toy robots start their own town.",
+    "time": "20",
+    "series": 18,
+    "mediaType": "cartoon",
+    "category": "cartoon",
+    "img": "data/img/cartoon/920102.svg"
+  },
+  {
+    "id": 920103,
+    "name": "River Post",
+    "originalName": "River Post",
+    "date": "2026-07-07",
+    "description": "Family mini-series about messages delivered by floating mail.",
+    "time": "22",
+    "series": 12,
+    "mediaType": "cartoon",
+    "category": "cartoon",
+    "img": "data/img/cartoon/920103.svg"
+  },
+  {
+    "id": 920104,
+    "name": "Bright Feathers",
+    "originalName": "Bright Feathers",
+    "date": "2026-08-01",
+    "description": "Musical cartoon adventure with traveling birds.",
+    "time": "94 min",
+    "mediaType": "cartoon",
+    "category": "cartoon",
+    "img": "data/img/cartoon/920104.svg"
+  },
+  {
+    "id": 920105,
+    "name": "Tiny Observatory",
+    "originalName": "Tiny Observatory",
+    "date": "2026-08-28",
+    "description": "Warm cartoon about kids restoring a rooftop planetarium.",
+    "time": "19",
+    "series": 15,
+    "mediaType": "cartoon",
+    "category": "cartoon",
+    "img": "data/img/cartoon/920105.svg"
+  }
+]

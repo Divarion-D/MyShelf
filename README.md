@@ -1,179 +1,209 @@
-## Общая архитектура
+# MyShelf
 
-Код представляет собой JavaScript-приложение для отображения каталога **аниме, фильмов и сериалов** с поддержкой:
-- Главной страницы (`index.html`)
-- Страниц категорий
-- Фильтрации, пагинации, модальных окон
-- Поддержки темной/светлой темы
-- Параметров в URL (`?view=...&category=...`)
+MyShelf это универсальная витрина контента с фильтрацией и просмотром карточек.
 
----
+Публичной формы добавления в интерфейсе нет. Контент описывается и поддерживается через JSON-файлы в `data/<category>/`.
 
-## Ключевые переменные и их назначение
+## Поддерживаемые варианты контента
 
-| Переменная | Тип | Описание |
-|-----------|-----|---------|
-| `categories` | `Object` | Конфигурация категорий. Определяет, какие годы доступны и есть ли список "запланированного". |
-| `homeItemsPerPage` | `Number` | Количество элементов на главной странице в каждой секции (по умолчанию `10`). |
-| `categoryItemsPerPage` | `Number` | Количество элементов на одной странице в категории (по умолчанию `20`). |
-| `defaultCategory` | `String` | Категория по умолчанию — `'anime'`. |
-| `currentPage` | `Number` | Текущая страница пагинации (начинается с `1`). |
-| `allData` | `Array` | Все загруженные элементы (просмотренные + запланированные). |
-| `filteredData` | `Array` | Отфильтрованные данные (для пагинации и рендера). |
+Категории (`category`):
 
----
+- `anime` — аниме
+- `cartoon` — мультики
+- `series` — сериалы
+- `movie` — фильмы
+- `manga` — манга
+- `book` — книги
+- `other` — прочее
 
-## Структура объекта `categories`
+Типы (`mediaType`):
 
-```js
-const categories = {
-    anime: { years: [2024, 2023, ...], hasPlanned: true },
-    movies: { years: [2024, 2023, ...], hasPlanned: true },
-    series: { years: [2024, 2023, 2022], hasPlanned: true }
-};
-```
+- `movie`
+- `series`
+- `anime`
+- `cartoon`
+- `manga`
+- `book`
+- `other`
 
-### Поля:
-- `years: number[]` — Годы, для которых есть JSON-файлы с просмотренными элементами.
-- `hasPlanned: boolean` — Есть ли файл `planned.json` для этой категории.
+Статус определяется по расположению файла:
 
-> **Пример**: `data/anime/2024.json`, `data/anime/planned.json`
+- `data/<category>/<year>.json` → просмотрено/прочитано (`isPlanned: false`)
+- `data/<category>/planned.json` → запланировано (`isPlanned: true`)
 
----
+В URL-параметрах страницы: `?view=watched` / `?view=planned`.
 
-## GET-параметры (URL-параметры)
+## Где лежат данные
 
-Код анализирует URL через `new URLSearchParams(window.location.search)`.
+- Просмотренное/прочитанное: `data/<category>/<year>.json`
+- Запланированное: `data/<category>/planned.json` (опционально)
 
-| Параметр | Пример | Описание |
-|--------|-------|--------|
-| `category` | `?category=movies` | Переопределяет текущую категорию. **Должен совпадать с ключом в `categories`**. |
-| `view` | `?view=planned` или `?view=watched` | Определяет, что показывать: запланированное или просмотренное. |
+Пример:
 
-### Примеры URL:
+- `data/anime/2024.json`
+- `data/anime/planned.json`
 
-| URL | Результат |
-|-----|---------|
-| `watched.html` | Показывает **просмотренное** аниме |
-| `watched.html?view=planned` | Показывает **запланированное** аниме |
-| `watched.html?category=series` | Показывает **сериалы** (если `series` есть в `categories`) |
-| `index.html` | Главная страница: фильмы + сериалы (без аниме) |
-
-> **Важно**: `view=planned` работает **только** если `hasPlanned: true` в категории.
-
----
-
-## Структура данных в JSON-файлах
-
-Каждый элемент должен содержать:
+## Базовая схема записи
 
 ```json
 {
+  "id": 10001,
   "name": "Название",
-  "img": "путь/к/обложке.jpg",
-  "date": "2024-01-15",
+  "originalName": "Original Name",
+  "date": "2026-04-25",
+  "img": "data/img/anime/10001.jpg",
+  "description": "Краткое описание",
+  "time": "120",
   "series": 12,
-  "time": 24,
-  "movie": 0,  // 1 = фильм, 0 = сериал
-  "description": "Краткое описание"
+  "movie": "0",
+  "mediaType": "series",
+  "category": "anime"
 }
 ```
 
----
+### Поля
 
-## Пагинация и фильтрация
+- `id` (number|string): уникальный идентификатор.
+- `name` (string): отображаемое название.
+- `originalName` (string, optional): оригинальное название.
+- `date` (string, optional): дата в формате `YYYY-MM-DD`.
+- `img` (string, optional): URL или путь к изображению.
+- `description` (string, optional): описание.
+- `time` (string, optional): длительность или объем.
+- `series` (number, optional): количество серий/глав.
+- `movie` ("1"|"0", optional): обратная совместимость со старыми аниме-данными. При `"1"` → `movie`, при `"0"` и `anime` → `series`, при `"0"` и другой категории → тип по умолчанию категории.
+- `mediaType` (string, optional): тип контента.
+- `category` (string, optional): категория. Если отсутствует, берется из папки.
 
-| Функция | Описание |
-|-------|--------|
-| `renderGallery(data, type, pageType)` | Рендерит карточки |
-| `headerMenu(category)` | Рендерит меню в navbar |
-| `renderPagination(list)` | Создаёт пагинацию |
-| `applyFilters()` | Фильтры: поиск, тип, год, сортировка |
+## Рекомендованные шаблоны по типам контента
 
-### Фильтры (на странице категории):
+### Фильм
 
-| Элемент | ID | Функция |
-|-------|----|-------|
-| Поиск | `search-input` | По названию |
-| Тип | `type-filter` | `any`, `movie`, `series` |
-| Год | `year-filter` | Выпадающий список |
-| Чекбоксы годов | `input[name="year"]` | Множественный выбор |
-| Сортировка | `sort-filter` | `date-desc`, `name-asc` и т.д. |
-
----
-
-## Фоновые изображения
-
-```js
-const backgrounds = {
-    anime: ['assets/img/breadcrumb/anime/1.jpeg', ...]
-};
+```json
+{
+  "id": 20001,
+  "name": "Inception",
+  "originalName": "Inception",
+  "date": "2010-07-16",
+  "img": "data/img/movie/inception.jpg",
+  "description": "Sci-fi thriller",
+  "time": "148 мин",
+  "mediaType": "movie",
+  "category": "movie"
+}
 ```
 
-- Случайно выбирается фон для `.site-breadcrumb` на основе текущей `category`.
+### Сериал
 
----
-
-## Тема (тёмная/светлая)
-
-- Хранится в `localStorage` как `"theme": "dark"` или `"light"`
-- Переключатель: `.theme-mode-control`
-- Логотип меняется: `.logo-light-mode` / `.logo-dark-mode`
-
----
-
-## Как добавить новую категорию
-
-1. Добавьте в `categories`:
-
-```js
-mynewcat: { years: [2024, 2023], hasPlanned: true }
+```json
+{
+  "id": 30001,
+  "name": "Dark",
+  "originalName": "Dark",
+  "date": "2017-12-01",
+  "img": "data/img/series/dark.jpg",
+  "description": "Mystery drama",
+  "time": "50 мин",
+  "series": 26,
+  "mediaType": "series",
+  "category": "series"
+}
 ```
 
-2. Создайте файлы:
-   - `data/mynewcat/2024.json`
-   - `data/mynewcat/planned.json` (если `hasPlanned: true`)
+### Аниме (совместимо со старым форматом)
 
-3. (Опционально) Добавьте фоны в `backgrounds.mynewcat`
+```json
+{
+  "id": 40001,
+  "name": "Cowboy Bebop",
+  "originalName": "Cowboy Bebop",
+  "date": "1998-04-03",
+  "img": "data/img/anime/40001.jpg",
+  "description": "Space western",
+  "time": "24",
+  "series": 26,
+  "movie": "0",
+  "mediaType": "series",
+  "category": "anime"
+}
+```
 
-4. Ваша категория будет доступна по ссылке:
-`watched.html?category=mynewcat`
+### Мультик
 
----
+```json
+{
+  "id": 50001,
+  "name": "Soul",
+  "originalName": "Soul",
+  "date": "2020-12-25",
+  "img": "data/img/cartoon/soul.jpg",
+  "description": "Pixar animation",
+  "time": "100 мин",
+  "mediaType": "cartoon",
+  "category": "cartoon"
+}
+```
 
-## Полезные функции
+### Манга
 
-| Функция | Назначение |
-|-------|----------|
-| `shuffleArray(arr)` | Перемешивает массив (для главной страницы) |
-| `safeAddEvent(id, event, handler)` | Безопасно добавляет обработчик |
-| `initMovieCarousel(type)` | Инициализирует Owl Carousel |
-| `showModal(item)` | Открывает модальное окно |
+```json
+{
+  "id": 60001,
+  "name": "Berserk",
+  "originalName": "Berserk",
+  "date": "1989-08-01",
+  "img": "data/img/manga/berserk.jpg",
+  "description": "Dark fantasy manga",
+  "time": "42 тома",
+  "series": 42,
+  "mediaType": "manga",
+  "category": "manga"
+}
+```
 
----
+### Книга
 
-## Резюме: Как использовать GET-параметры
+```json
+{
+  "id": 70001,
+  "name": "1984",
+  "originalName": "Nineteen Eighty-Four",
+  "date": "1949-06-08",
+  "img": "data/img/book/1984.jpg",
+  "description": "Dystopian novel",
+  "time": "328 стр",
+  "mediaType": "book",
+  "category": "book"
+}
+```
 
-| Задача | URL |
-|------|-----|
-| Показать запланированное аниме | `watched.html?view=planned` |
-| Показать просмотренные фильмы | `watched.html?view=watched` |
-| Показать сериалы или другую категорию | `watched.html?category=series` |
-| Главная страница | `index.html` |
+### Прочее
 
-> **Все параметры опциональны**, приоритет: **URL > файл > дефолт**
+```json
+{
+  "id": 80001,
+  "name": "Курс по режиссуре",
+  "date": "2025-09-01",
+  "description": "Учебный контент",
+  "time": "12 часов",
+  "mediaType": "other",
+  "category": "other"
+}
+```
 
----
+## URL-роутинг
 
-## Заключение
+- Главная по категории: `index.html?category=anime`
+- Каталог просмотренного: `watched.html?category=book&view=watched`
+- Каталог запланированного: `watched.html?category=manga&view=planned`
 
-Система гибкая, модульная и легко расширяемая.  
-**Ключевые моменты:**
-- Управление через `categories` и JSON-файлы
-- Гибкие GET-параметры
-- Автоматическая пагинация и фильтрация
-- Поддержка тем и каруселей
+## Технические заметки
 
----
-
-**Готово к использованию и масштабированию.**
+- Чтение данных кэшируется в `localStorage` с TTL 7 дней (префикс ключа: `myshelf_cache_`).
+- Если `mediaType` не задан:
+  - при `movie: "1"` считается `movie`
+  - при `movie: "0"` и `category: anime` считается `series`
+  - при `movie: "0"` и другой категории — используется тип по умолчанию категории (например, `book` → `book`, `series` → `series`)
+  - иначе тип по умолчанию для категории (название категории = тип, если это валидный `mediaType`)
+- Если `img` невалиден или пустой, используется fallback-изображение.
+- Поле `source` добавляется автоматически при нормализации (`"remote"` для данных из JSON-файлов).

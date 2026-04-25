@@ -1,0 +1,57 @@
+[
+  {
+    "id": 940101,
+    "name": "Mercury Steps",
+    "originalName": "Mercury Steps",
+    "date": "2026-06-08",
+    "description": "Sci-fi thriller set inside an autonomous metro network.",
+    "time": "121 min",
+    "mediaType": "movie",
+    "category": "movie",
+    "img": "data/img/movie/940101.svg"
+  },
+  {
+    "id": 940102,
+    "name": "Salt District",
+    "originalName": "Salt District",
+    "date": "2026-06-27",
+    "description": "Crime film about a vanished customs convoy.",
+    "time": "113 min",
+    "mediaType": "movie",
+    "category": "movie",
+    "img": "data/img/movie/940102.svg"
+  },
+  {
+    "id": 940103,
+    "name": "The Sixth Window",
+    "originalName": "The Sixth Window",
+    "date": "2026-07-14",
+    "description": "Psychological mystery inside a restored hotel.",
+    "time": "107 min",
+    "mediaType": "movie",
+    "category": "movie",
+    "img": "data/img/movie/940103.svg"
+  },
+  {
+    "id": 940104,
+    "name": "Velvet Horizon",
+    "originalName": "Velvet Horizon",
+    "date": "2026-08-11",
+    "description": "Road movie with a washed-up singer crossing the coast.",
+    "time": "116 min",
+    "mediaType": "movie",
+    "category": "movie",
+    "img": "data/img/movie/940104.svg"
+  },
+  {
+    "id": 940105,
+    "name": "Low Orbit Hotel",
+    "originalName": "Low Orbit Hotel",
+    "date": "2026-09-02",
+    "description": "Chamber drama in a commercial station above Earth.",
+    "time": "129 min",
+    "mediaType": "movie",
+    "category": "movie",
+    "img": "data/img/movie/940105.svg"
+  }
+]
