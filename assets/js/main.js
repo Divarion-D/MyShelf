@@ -62,6 +62,11 @@ function getDefaultMediaTypeByCategory(category) {
     return isValidMediaType(category) ? category : 'other';
 }
 
+// Category cover image used as a fallback when a record has no valid image.
+function getCategoryCover(category) {
+    return categories[category] ? `data/img/category/${category}.svg` : FALLBACK_COVER;
+}
+
 // === LOCALIZATION (i18n) ===
 // Each language is described by its own file: assets/i18n/<code>.json.
 // The language list and the default language live in assets/i18n/config.json.
@@ -404,6 +409,10 @@ function normalizeItem(item, category, isPlanned, source) {
     const parsedSeries = Number(item.series);
     const hasSeries = Number.isFinite(parsedSeries) && parsedSeries > 0;
 
+    // Use the category cover instead of the generic logo when no valid image is set.
+    const cover = sanitizeImageUrl(item.img);
+    const resolvedCover = cover === FALLBACK_COVER ? getCategoryCover(normalizedCategory) : cover;
+
     return {
         ...item,
         id: item.id || `custom_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
@@ -411,7 +420,7 @@ function normalizeItem(item, category, isPlanned, source) {
         originalName: String(item.originalName || '').trim(),
         description: String(item.description || '').trim(),
         date: toIsoDate(item.date) || '',
-        img: sanitizeImageUrl(item.img),
+        img: resolvedCover,
         time: String(item.time || '').trim(),
         series: hasSeries ? parsedSeries : null,
         category: normalizedCategory,

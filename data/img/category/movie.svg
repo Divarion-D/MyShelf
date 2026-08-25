@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080" role="img" aria-label="MOVIES">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#e05656"/>
+      <stop offset="52%" stop-color="#7a1f1f"/>
+      <stop offset="100%" stop-color="#2a1113"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.4" r="0.55">
+      <stop offset="0%" stop-color="#ff9d9d" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ff9d9d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="720" height="1080" rx="40" fill="url(#bg)"/>
+  <rect width="720" height="1080" rx="40" fill="url(#glow)"/>
+
+  <!-- Decorative rings -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2">
+    <circle cx="360" cy="430" r="210"/>
+    <circle cx="360" cy="430" r="300"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.10">
+    <circle cx="130" cy="250" r="6"/>
+    <circle cx="600" cy="210" r="9"/>
+    <circle cx="620" cy="620" r="6"/>
+    <circle cx="110" cy="640" r="8"/>
+  </g>
+
+  <!-- Brand kicker -->
+  <text x="360" y="150" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif"
+        font-size="26" font-weight="700" letter-spacing="10" fill="#ffffff" fill-opacity="0.75">MYSHELF</text>
+
+  <!-- Icon badge -->
+  <rect x="222" y="292" width="276" height="276" rx="62" fill="url(#badge)"
+        stroke="#ffffff" stroke-opacity="0.28" stroke-width="2"/>
+  <rect x="270" y="392" width="180" height="122" rx="14" fill="none" stroke="#ffffff" stroke-width="10"/>
+    <g transform="rotate(-8 360 372)">
+      <rect x="270" y="352" width="180" height="40" rx="8" fill="#ffffff"/>
+      <g fill="#3a1113">
+        <path d="M290 352 L306 392 L322 392 L306 352 Z"/>
+        <path d="M330 352 L346 392 L362 392 L346 352 Z"/>
+        <path d="M370 352 L386 392 L402 392 L386 352 Z"/>
+        <path d="M410 352 L426 392 L442 392 L426 352 Z"/>
+      </g>
+    </g>
+    <path d="M336 424 L336 482 L390 453 Z" fill="#ffffff"/>
+
+  <!-- Category name -->
+  <text x="360" y="760" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif"
+        font-size="78" font-weight="800" fill="#ffffff">MOVIES</text>
+  <rect x="312" y="800" width="96" height="7" rx="3.5" fill="#ffb3b3"/>
+
+  <!-- Footer -->
+  <text x="360" y="1002" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif"
+        font-size="22" font-weight="600" letter-spacing="6" fill="#ffffff" fill-opacity="0.55">LIBRARY</text>
+</svg>

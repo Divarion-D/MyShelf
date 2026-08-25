@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080" role="img" aria-label="BOOKS">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#38c46a"/>
+      <stop offset="52%" stop-color="#1a5c34"/>
+      <stop offset="100%" stop-color="#10241a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.4" r="0.55">
+      <stop offset="0%" stop-color="#92e6ad" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#92e6ad" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="720" height="1080" rx="40" fill="url(#bg)"/>
+  <rect width="720" height="1080" rx="40" fill="url(#glow)"/>
+
+  <!-- Decorative rings -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2">
+    <circle cx="360" cy="430" r="210"/>
+    <circle cx="360" cy="430" r="300"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.10">
+    <circle cx="130" cy="250" r="6"/>
+    <circle cx="600" cy="210" r="9"/>
+    <circle cx="620" cy="620" r="6"/>
+    <circle cx="110" cy="640" r="8"/>
+  </g>
+
+  <!-- Brand kicker -->
+  <text x="360" y="150" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif"
+        font-size="26" font-weight="700" letter-spacing="10" fill="#ffffff" fill-opacity="0.75">MYSHELF</text>
+
+  <!-- Icon badge -->
+  <rect x="222" y="292" width="276" height="276" rx="62" fill="url(#badge)"
+        stroke="#ffffff" stroke-opacity="0.28" stroke-width="2"/>
+  <path d="M360 372 C 326 352, 288 352, 262 364 L262 500 C 288 488, 326 488, 360 508" fill="none" stroke="#ffffff" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M360 372 C 394 352, 432 352, 458 364 L458 500 C 432 488, 394 488, 360 508" fill="none" stroke="#ffffff" stroke-width="10" stroke-linejoin="round"/>
+    <line x1="360" y1="372" x2="360" y2="508" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+    <g stroke="#ffffff" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round">
+      <line x1="292" y1="404" x2="338" y2="398"/>
+      <line x1="292" y1="432" x2="338" y2="426"/>
+      <line x1="382" y1="398" x2="428" y2="404"/>
+      <line x1="382" y1="426" x2="428" y2="432"/>
+    </g>
+
+  <!-- Category name -->
+  <text x="360" y="760" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif"
+        font-size="78" font-weight="800" fill="#ffffff">BOOKS</text>
+  <rect x="312" y="800" width="96" height="7" rx="3.5" fill="#a9edc0"/>
+
+  <!-- Footer -->
+  <text x="360" y="1002" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif"
+        font-size="22" font-weight="600" letter-spacing="6" fill="#ffffff" fill-opacity="0.55">LIBRARY</text>
+</svg>
