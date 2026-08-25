@@ -1,209 +1,90 @@
 # MyShelf
 
-MyShelf это универсальная витрина контента с фильтрацией и просмотром карточек.
+MyShelf is a static, client-side showcase for your personal media collection — anime, cartoons, series, movies, manga, books, and anything else. It renders filterable, paginated card galleries straight from JSON files, with no backend, build step, or database.
 
-Публичной формы добавления в интерфейсе нет. Контент описывается и поддерживается через JSON-файлы в `data/<category>/`.
+There is no "add" form in the UI. Content is described and maintained by hand in JSON files under `data/<category>/`, and the site reads them directly in the browser.
 
-## Поддерживаемые варианты контента
+## Features
 
-Категории (`category`):
+- **Pure static site** — plain HTML, CSS, and vanilla JS (with jQuery/Bootstrap plugins). Host it anywhere that serves files.
+- **Seven content categories** — anime, cartoon, series, movie, manga, book, other.
+- **Two views per category** — *watched/read* and *planned*.
+- **Search, filter, and sort** — by title, media type, year, and date/name ordering.
+- **Detail modal** — cover, category, type, date, episode/chapter count, duration, description.
+- **Multilingual UI** — Russian and English out of the box, switchable in the header; add more via JSON. See [`docs/i18n.md`](docs/i18n.md).
+- **Client-side caching** — JSON responses are cached in `localStorage` for 7 days.
+- **Light/dark theme** — remembered across visits.
 
-- `anime` — аниме
-- `cartoon` — мультики
-- `series` — сериалы
-- `movie` — фильмы
-- `manga` — манга
-- `book` — книги
-- `other` — прочее
+## Quick start
 
-Типы (`mediaType`):
+The site uses `fetch()` to load JSON, so it must be served over HTTP — opening `index.html` from the filesystem (`file://`) will not work.
 
-- `movie`
-- `series`
-- `anime`
-- `cartoon`
-- `manga`
-- `book`
-- `other`
-
-Статус определяется по расположению файла:
-
-- `data/<category>/<year>.json` → просмотрено/прочитано (`isPlanned: false`)
-- `data/<category>/planned.json` → запланировано (`isPlanned: true`)
-
-В URL-параметрах страницы: `?view=watched` / `?view=planned`.
-
-## Где лежат данные
-
-- Просмотренное/прочитанное: `data/<category>/<year>.json`
-- Запланированное: `data/<category>/planned.json` (опционально)
-
-Пример:
-
-- `data/anime/2024.json`
-- `data/anime/planned.json`
-
-## Базовая схема записи
-
-```json
-{
-  "id": 10001,
-  "name": "Название",
-  "originalName": "Original Name",
-  "date": "2026-04-25",
-  "img": "data/img/anime/10001.jpg",
-  "description": "Краткое описание",
-  "time": "120",
-  "series": 12,
-  "movie": "0",
-  "mediaType": "series",
-  "category": "anime"
-}
+```bash
+# From the project root, start any static server, e.g.:
+python3 -m http.server 8000
+# then open http://localhost:8000/index.html
 ```
 
-### Поля
+Any static host works too — GitHub Pages, Netlify, Nginx, etc. Just serve the repository root.
 
-- `id` (number|string): уникальный идентификатор.
-- `name` (string): отображаемое название.
-- `originalName` (string, optional): оригинальное название.
-- `date` (string, optional): дата в формате `YYYY-MM-DD`.
-- `img` (string, optional): URL или путь к изображению.
-- `description` (string, optional): описание.
-- `time` (string, optional): длительность или объем.
-- `series` (number, optional): количество серий/глав.
-- `movie` ("1"|"0", optional): обратная совместимость со старыми аниме-данными. При `"1"` → `movie`, при `"0"` и `anime` → `series`, при `"0"` и другой категории → тип по умолчанию категории.
-- `mediaType` (string, optional): тип контента.
-- `category` (string, optional): категория. Если отсутствует, берется из папки.
+## Adding content
 
-## Рекомендованные шаблоны по типам контента
+1. Pick a category folder under `data/` (e.g. `data/movie/`).
+2. Add your entry to the year file for watched/read items (`data/movie/2026.json`) or to `planned.json` for planned items. Each file is a JSON array of objects.
+3. Register the year in the category config so it gets loaded — see [`docs/architecture.md`](docs/architecture.md#category-configuration).
+4. Optionally drop a cover image in `data/img/<category>/` and point `img` at it.
 
-### Фильм
+A minimal entry:
 
 ```json
 {
   "id": 20001,
   "name": "Inception",
-  "originalName": "Inception",
   "date": "2010-07-16",
-  "img": "data/img/movie/inception.jpg",
-  "description": "Sci-fi thriller",
-  "time": "148 мин",
   "mediaType": "movie",
-  "category": "movie"
+  "category": "movie",
+  "img": "data/img/movie/inception.jpg"
 }
 ```
 
-### Сериал
+The full field reference and per-type templates live in [`docs/data-schema.md`](docs/data-schema.md).
 
-```json
-{
-  "id": 30001,
-  "name": "Dark",
-  "originalName": "Dark",
-  "date": "2017-12-01",
-  "img": "data/img/series/dark.jpg",
-  "description": "Mystery drama",
-  "time": "50 мин",
-  "series": 26,
-  "mediaType": "series",
-  "category": "series"
-}
+## Project layout
+
+```text
+MyShelf/
+├── index.html          # Home page (per-category overview: latest + planned)
+├── watched.html        # Category catalog (watched / planned, with filters)
+├── assets/
+│   ├── css/            # Styles + vendor CSS
+│   ├── js/main.js      # All application logic
+│   ├── js/*.min.js     # jQuery, Bootstrap, Owl Carousel, Isotope, etc.
+│   ├── i18n/           # UI translations (config.json + <lang>.json)
+│   ├── fonts/          # Icon fonts
+│   └── img/            # Logo and breadcrumb backgrounds
+├── data/
+│   ├── <category>/<year>.json    # Watched / read items
+│   ├── <category>/planned.json   # Planned items
+│   ├── img/<category>/           # Per-item cover images
+│   └── img/category/             # Per-category fallback covers (<category>.svg)
+├── integrations/       # Your own scripts that generate / sync data (see below)
+└── docs/               # Full documentation
 ```
 
-### Аниме (совместимо со старым форматом)
+## Documentation
 
-```json
-{
-  "id": 40001,
-  "name": "Cowboy Bebop",
-  "originalName": "Cowboy Bebop",
-  "date": "1998-04-03",
-  "img": "data/img/anime/40001.jpg",
-  "description": "Space western",
-  "time": "24",
-  "series": 26,
-  "movie": "0",
-  "mediaType": "series",
-  "category": "anime"
-}
-```
+- [`docs/data-schema.md`](docs/data-schema.md) — record schema, every field, and per-type templates.
+- [`docs/architecture.md`](docs/architecture.md) — how the app loads, normalizes, and renders data.
+- [`docs/routing.md`](docs/routing.md) — pages and URL parameters.
+- [`docs/i18n.md`](docs/i18n.md) — the localization system and how to add a language.
+- [`integrations/README.md`](integrations/README.md) — how to plug in scripts that produce `data/` files.
 
-### Мультик
+## URL routing (at a glance)
 
-```json
-{
-  "id": 50001,
-  "name": "Soul",
-  "originalName": "Soul",
-  "date": "2020-12-25",
-  "img": "data/img/cartoon/soul.jpg",
-  "description": "Pixar animation",
-  "time": "100 мин",
-  "mediaType": "cartoon",
-  "category": "cartoon"
-}
-```
+- Home for a category: `index.html?category=anime`
+- Watched catalog: `watched.html?category=book&view=watched`
+- Planned catalog: `watched.html?category=manga&view=planned`
 
-### Манга
+## License
 
-```json
-{
-  "id": 60001,
-  "name": "Berserk",
-  "originalName": "Berserk",
-  "date": "1989-08-01",
-  "img": "data/img/manga/berserk.jpg",
-  "description": "Dark fantasy manga",
-  "time": "42 тома",
-  "series": 42,
-  "mediaType": "manga",
-  "category": "manga"
-}
-```
-
-### Книга
-
-```json
-{
-  "id": 70001,
-  "name": "1984",
-  "originalName": "Nineteen Eighty-Four",
-  "date": "1949-06-08",
-  "img": "data/img/book/1984.jpg",
-  "description": "Dystopian novel",
-  "time": "328 стр",
-  "mediaType": "book",
-  "category": "book"
-}
-```
-
-### Прочее
-
-```json
-{
-  "id": 80001,
-  "name": "Курс по режиссуре",
-  "date": "2025-09-01",
-  "description": "Учебный контент",
-  "time": "12 часов",
-  "mediaType": "other",
-  "category": "other"
-}
-```
-
-## URL-роутинг
-
-- Главная по категории: `index.html?category=anime`
-- Каталог просмотренного: `watched.html?category=book&view=watched`
-- Каталог запланированного: `watched.html?category=manga&view=planned`
-
-## Технические заметки
-
-- Чтение данных кэшируется в `localStorage` с TTL 7 дней (префикс ключа: `myshelf_cache_`).
-- Если `mediaType` не задан:
-  - при `movie: "1"` считается `movie`
-  - при `movie: "0"` и `category: anime` считается `series`
-  - при `movie: "0"` и другой категории — используется тип по умолчанию категории (например, `book` → `book`, `series` → `series`)
-  - иначе тип по умолчанию для категории (название категории = тип, если это валидный `mediaType`)
-- Если `img` невалиден или пустой, используется fallback-изображение.
-- Поле `source` добавляется автоматически при нормализации (`"remote"` для данных из JSON-файлов).
+No license file is present. Add one if you intend to distribute or open-source the project.

@@ -1,40 +1,20 @@
-// === КОНФИГУРАЦИЯ КАТЕГОРИЙ ===
-const categories = {
-    anime: {label: 'Аниме', years: [2026], hasPlanned: true},
-    cartoon: {label: 'Мультики', years: [2026], hasPlanned: true},
-    series: {label: 'Сериалы', years: [2026], hasPlanned: true},
-    movie: {label: 'Фильмы', years: [2026], hasPlanned: true},
-    manga: {label: 'Манга', years: [2026], hasPlanned: true},
-    book: {label: 'Книги', years: [2026], hasPlanned: true},
-    other: {label: 'Прочее', years: [2026], hasPlanned: true}
-};
+// === APP SETTINGS AND STATE ===
 
-const mediaTypeLabels = {
-    movie: 'Фильм',
-    series: 'Сериал',
-    anime: 'Аниме',
-    cartoon: 'Мультик',
-    manga: 'Манга',
-    book: 'Книга',
-    other: 'Прочее'
-};
-
-function getDefaultMediaTypeByCategory(category) {
-    return mediaTypeLabels[category] ? category : 'other';
-}
-
+// How many cards to show in the carousels on the home page.
 const homeItemsPerPage = 10;
+// How many cards to show per catalog page (watched.html).
 const categoryItemsPerPage = 20;
+// Default category used when the URL is missing or has an invalid one.
 const defaultCategory = 'anime';
+// Prefix for cached JSON data keys in localStorage.
 const CACHE_PREFIX = 'myshelf_cache_';
+// Cache lifetime: 7 days in milliseconds.
 const CACHE_TTL = 7 * 24 * 60 * 60 * 1000;
+// Fallback cover used when a record has no valid image.
 const FALLBACK_COVER = 'assets/img/logo/logo.png';
 
-let currentPage = 1;
-let allData = [];
-let filteredData = [];
-let currentContext = null;
-
+// Header (breadcrumb) background images. Key is the category, value is a list
+// of paths one of which is picked at random; `default` is the shared set.
 const backgrounds = {
     default: [
         'assets/img/breadcrumb/anime/1.jpeg',
@@ -43,6 +23,177 @@ const backgrounds = {
         'assets/img/breadcrumb/anime/4.jpg'
     ]
 };
+
+// Current pagination page in the catalog.
+let currentPage = 1;
+// All loaded and normalized records for the current category.
+let allData = [];
+// Records after search/filters/sorting are applied (catalog).
+let filteredData = [];
+// Page context: page type, category, view (watched/planned).
+let currentContext = null;
+
+// Localization (i18n) state. Populated in loadTranslations().
+let i18nDict = {};          // dictionary of the active language
+let i18nFallbackDict = {};  // dictionary of the default (fallback) language
+let availableLanguages = [];// list of available languages from config.json
+let defaultLang = 'ru';     // default / fallback language
+let currentLang = 'ru';     // active UI language
+
+// === CATEGORY CONFIGURATION ===
+const categories = {
+    anime: {years: [2026], hasPlanned: true},
+    cartoon: {years: [2026], hasPlanned: true},
+    series: {years: [2026], hasPlanned: true},
+    movie: {years: [2026], hasPlanned: true},
+    manga: {years: [2026], hasPlanned: true},
+    book: {years: [2026], hasPlanned: true},
+    other: {years: [2026], hasPlanned: true}
+};
+
+// Valid content types. Display names come from the translations (mediaType.*).
+const MEDIA_TYPES = ['movie', 'series', 'anime', 'cartoon', 'manga', 'book', 'other'];
+
+function isValidMediaType(type) {
+    return MEDIA_TYPES.includes(type);
+}
+
+function getDefaultMediaTypeByCategory(category) {
+    return isValidMediaType(category) ? category : 'other';
+}
+
+// Category cover image used as a fallback when a record has no valid image.
+function getCategoryCover(category) {
+    return categories[category] ? `data/img/category/${category}.svg` : FALLBACK_COVER;
+}
+
+// === LOCALIZATION (i18n) ===
+// Each language is described by its own file: assets/i18n/<code>.json.
+// The language list and the default language live in assets/i18n/config.json.
+const I18N_DIR = 'assets/i18n';
+const I18N_CONFIG_PATH = `${I18N_DIR}/config.json`;
+const I18N_STORAGE_KEY = 'myshelf_lang';
+
+async function fetchI18nJson(path) {
+    try {
+        const res = await fetch(`${path}?t=${Date.now()}`);
+        if (res.ok) {
+            return await res.json();
+        }
+    } catch (e) {
+        console.warn(`Failed to load ${path}`, e);
+    }
+    return null;
+}
+
+async function loadTranslations() {
+    const config = (await fetchI18nJson(I18N_CONFIG_PATH)) || {};
+    availableLanguages = Array.isArray(config.languages) ? config.languages : [];
+    defaultLang = config.default || availableLanguages[0]?.code || 'ru';
+
+    currentLang = resolveLanguage();
+
+    // Always load the default language as the fallback dictionary.
+    i18nFallbackDict = (await fetchI18nJson(`${I18N_DIR}/${defaultLang}.json`)) || {};
+    i18nDict = currentLang === defaultLang
+        ? i18nFallbackDict
+        : ((await fetchI18nJson(`${I18N_DIR}/${currentLang}.json`)) || i18nFallbackDict);
+
+    document.documentElement.setAttribute('lang', currentLang);
+}
+
+function resolveLanguage() {
+    const codes = availableLanguages.map((lang) => lang.code);
+
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get('lang');
+    if (fromUrl && codes.includes(fromUrl)) {
+        try {
+            localStorage.setItem(I18N_STORAGE_KEY, fromUrl);
+        } catch (e) {
+            console.warn('Failed to save language', e);
+        }
+        return fromUrl;
+    }
+
+    const stored = localStorage.getItem(I18N_STORAGE_KEY);
+    if (stored && codes.includes(stored)) {
+        return stored;
+    }
+
+    return codes.includes(defaultLang) ? defaultLang : (codes[0] || defaultLang);
+}
+
+// Translate by key. params are substituted into "{name}"-style placeholders.
+function t(key, params) {
+    let template = key in i18nDict
+        ? i18nDict[key]
+        : key in i18nFallbackDict
+            ? i18nFallbackDict[key]
+            : key;
+
+    if (params) {
+        template = template.replace(/\{(\w+)\}/g, (match, name) =>
+            params[name] !== undefined ? String(params[name]) : match);
+    }
+
+    return template;
+}
+
+// Apply static translations to the markup via data attributes.
+function applyStaticTranslations(root = document) {
+    root.querySelectorAll('[data-i18n]').forEach((el) => {
+        el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+        el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+    });
+    root.querySelectorAll('[data-i18n-content]').forEach((el) => {
+        el.setAttribute('content', t(el.getAttribute('data-i18n-content')));
+    });
+    root.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+        el.setAttribute('alt', t(el.getAttribute('data-i18n-alt')));
+    });
+}
+
+function buildLanguageSwitch() {
+    const containers = document.querySelectorAll('.language-switch');
+    if (!containers.length || !availableLanguages.length) {
+        return;
+    }
+
+    containers.forEach((container) => {
+        container.setAttribute('aria-label', t('language.label'));
+        container.innerHTML = availableLanguages
+            .map((lang) => {
+                const activeClass = lang.code === currentLang ? ' active' : '';
+                const label = escapeHtml(lang.label || lang.code.toUpperCase());
+                return `<button type="button" class="language-btn${activeClass}" data-lang="${escapeHtml(lang.code)}" title="${label}">${escapeHtml(lang.code.toUpperCase())}</button>`;
+            })
+            .join('');
+
+        container.querySelectorAll('.language-btn').forEach((btn) => {
+            btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+        });
+    });
+}
+
+function setLanguage(code) {
+    if (!code || code === currentLang) {
+        return;
+    }
+
+    try {
+        localStorage.setItem(I18N_STORAGE_KEY, code);
+    } catch (e) {
+        console.warn('Failed to save language', e);
+    }
+
+    // Re-render the whole UI in the new language via a page reload.
+    const url = new URL(window.location.href);
+    url.searchParams.delete('lang');
+    window.location.href = url.toString();
+}
 
 (function ($) {
     'use strict';
@@ -140,7 +291,7 @@ function setCache(key, data) {
     try {
         localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(cacheData));
     } catch (e) {
-        console.warn('Не удалось сохранить кэш', e);
+        console.warn('Failed to save cache', e);
         clearOldCache();
     }
 }
@@ -159,7 +310,7 @@ function getCache(key) {
         }
         return cacheData.data;
     } catch (e) {
-        console.warn('Ошибка чтения кэша', e);
+        console.warn('Cache read error', e);
         localStorage.removeItem(CACHE_PREFIX + key);
         return null;
     }
@@ -226,16 +377,17 @@ function toIsoDate(value) {
 }
 
 function getCategoryLabel(category) {
-    return categories[category]?.label || categories[defaultCategory].label;
+    const key = categories[category] ? category : defaultCategory;
+    return t(`category.${key}`);
 }
 
 function getMediaTypeLabel(mediaType) {
-    return mediaTypeLabels[mediaType] || mediaTypeLabels.other;
+    return t(`mediaType.${isValidMediaType(mediaType) ? mediaType : 'other'}`);
 }
 
 function inferMediaType(item, category) {
     const explicit = String(item.mediaType || '').trim();
-    if (explicit && mediaTypeLabels[explicit]) {
+    if (explicit && isValidMediaType(explicit)) {
         return explicit;
     }
 
@@ -257,14 +409,18 @@ function normalizeItem(item, category, isPlanned, source) {
     const parsedSeries = Number(item.series);
     const hasSeries = Number.isFinite(parsedSeries) && parsedSeries > 0;
 
+    // Use the category cover instead of the generic logo when no valid image is set.
+    const cover = sanitizeImageUrl(item.img);
+    const resolvedCover = cover === FALLBACK_COVER ? getCategoryCover(normalizedCategory) : cover;
+
     return {
         ...item,
         id: item.id || `custom_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
-        name: String(item.name || item.originalName || 'Без названия').trim(),
+        name: String(item.name || item.originalName || '').trim(),
         originalName: String(item.originalName || '').trim(),
         description: String(item.description || '').trim(),
         date: toIsoDate(item.date) || '',
-        img: sanitizeImageUrl(item.img),
+        img: resolvedCover,
         time: String(item.time || '').trim(),
         series: hasSeries ? parsedSeries : null,
         category: normalizedCategory,
@@ -290,7 +446,7 @@ function sortByDateDescThenName(list) {
             return 1;
         }
 
-        return String(a.name || '').localeCompare(String(b.name || ''), 'ru');
+        return String(a.name || '').localeCompare(String(b.name || ''), currentLang);
     });
 }
 
@@ -326,7 +482,7 @@ async function loadWatchedData(category) {
                     }
                 }
             } catch (e) {
-                console.warn(`Не удалось загрузить data/${category}/${year}.json`, e);
+                console.warn(`Failed to load data/${category}/${year}.json`, e);
             }
         }
 
@@ -360,7 +516,7 @@ async function loadPlannedData(category) {
                 setCache(cacheKey, data);
             }
         } catch (e) {
-            console.warn(`Не удалось загрузить data/${category}/planned.json`, e);
+            console.warn(`Failed to load data/${category}/planned.json`, e);
         }
     }
 
@@ -412,10 +568,10 @@ function getItemMeta(item) {
     const mediaTypeLabel = getMediaTypeLabel(item.mediaType);
 
     if (item.category === 'anime' && item.mediaType === 'movie') {
-        return 'Аниме-фильм';
+        return t('meta.animeMovie');
     }
     if (item.category === 'anime' && item.mediaType === 'series') {
-        return 'Аниме-сериал';
+        return t('meta.animeSeries');
     }
 
     if (mediaTypeLabel === categoryLabel) {
@@ -431,10 +587,10 @@ function getDurationText(item) {
     }
 
     if (item.mediaType === 'book' || item.mediaType === 'manga') {
-        return 'Нет данных по объему';
+        return t('duration.noVolume');
     }
 
-    return 'Нет данных по длительности';
+    return t('duration.noDuration');
 }
 
 function renderGallery(dataList, galleryType, pageType) {
@@ -446,7 +602,7 @@ function renderGallery(dataList, galleryType, pageType) {
     gallery.innerHTML = '';
 
     if (!dataList.length) {
-        gallery.innerHTML = '<div class="no-results">Ничего не найдено</div>';
+        gallery.innerHTML = `<div class="no-results">${escapeHtml(t('gallery.empty'))}</div>`;
         return;
     }
 
@@ -458,15 +614,15 @@ function renderGallery(dataList, galleryType, pageType) {
         const card = document.createElement('div');
 
         const statusBadge = item.isPlanned
-            ? '<span class="movie-quality shelf-badge planned">ПЛАН</span>'
-            : '<span class="movie-quality shelf-badge watched">ГОТОВО</span>';
+            ? `<span class="movie-quality shelf-badge planned">${escapeHtml(t('badge.planned'))}</span>`
+            : `<span class="movie-quality shelf-badge watched">${escapeHtml(t('badge.watched'))}</span>`;
 
         const countBadge = item.series
             ? `<span class="movie-episode">#<small>${escapeHtml(item.series)}</small></span>`
             : '';
 
         const imageUrl = sanitizeImageUrl(item.img);
-        const title = escapeHtml(item.name);
+        const title = escapeHtml(item.name || t('common.untitled'));
         const meta = escapeHtml(getItemMeta(item));
         const duration = escapeHtml(getDurationText(item));
 
@@ -509,11 +665,11 @@ function buildCategoryMenuLinks(context) {
         ? ''
         : `&view=${context.isPlanned ? 'planned' : 'watched'}`;
 
-    return Object.entries(categories)
-        .map(([key, config]) => {
+    return Object.keys(categories)
+        .map((key) => {
             const activeClass = key === context.category ? ' active' : '';
             const currentAttr = key === context.category ? ' aria-current="page"' : '';
-            return `<li><a class="dropdown-item${activeClass}" href="${targetPage}?category=${key}${viewSuffix}"${currentAttr}>${config.label}</a></li>`;
+            return `<li><a class="dropdown-item${activeClass}" href="${targetPage}?category=${key}${viewSuffix}"${currentAttr}>${escapeHtml(getCategoryLabel(key))}</a></li>`;
         })
         .join('');
 }
@@ -537,8 +693,8 @@ function buildViewSwitchLinks(context) {
     const plannedAriaDisabled = hasPlanned ? 'false' : 'true';
 
     return `
-        <a class="nav-view-link${watchedActive}" href="watched.html?category=${context.category}&view=watched"${watchedCurrent}>Просмотрено</a>
-        <a class="nav-view-link${plannedActive}${plannedDisabledClass}" href="${plannedHref}" aria-disabled="${plannedAriaDisabled}"${plannedCurrent}>Запланировано</a>
+        <a class="nav-view-link${watchedActive}" href="watched.html?category=${context.category}&view=watched"${watchedCurrent}>${escapeHtml(t('view.watched'))}</a>
+        <a class="nav-view-link${plannedActive}${plannedDisabledClass}" href="${plannedHref}" aria-disabled="${plannedAriaDisabled}"${plannedCurrent}>${escapeHtml(t('view.planned'))}</a>
     `;
 }
 
@@ -548,12 +704,12 @@ function buildHomeCategorySwitch(currentCategory) {
         return;
     }
 
-    switchEl.innerHTML = Object.entries(categories)
-        .map(([key, config]) => {
+    switchEl.innerHTML = Object.keys(categories)
+        .map((key) => {
             const isActive = key === currentCategory;
             const activeClass = isActive ? ' active' : '';
             const currentAttr = isActive ? ' aria-current="page"' : '';
-            return `<a class="home-category-chip${activeClass}" href="index.html?category=${key}"${currentAttr}>${escapeHtml(config.label)}</a>`;
+            return `<a class="home-category-chip${activeClass}" href="index.html?category=${key}"${currentAttr}>${escapeHtml(getCategoryLabel(key))}</a>`;
         })
         .join('');
 }
@@ -588,17 +744,14 @@ function headerMenu(context) {
         return;
     }
 
-    const currentCategoryLabel = getCategoryLabel(context.category);
-    const currentView = context.isPlanned ? 'Запланировано' : 'Просмотрено';
     const isHome = context.pageType === 'home';
-    const hasPlanned = Boolean(categories[context.category]?.hasPlanned);
 
     menuContainer.innerHTML = `
         <li class="nav-item">
-            <a class="nav-link${isHome ? ' active' : ''}" href="index.html?category=${context.category}"${isHome ? ' aria-current="page"' : ''}>Главная</a>
+            <a class="nav-link${isHome ? ' active' : ''}" href="index.html?category=${context.category}"${isHome ? ' aria-current="page"' : ''}>${escapeHtml(t('nav.home'))}</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Категории</a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">${escapeHtml(t('nav.categories'))}</a>
             <ul class="dropdown-menu fade-down">
                 ${buildCategoryMenuLinks(context)}
             </ul>
@@ -632,7 +785,7 @@ function initMovieCarousel(type) {
             $gallery.removeClass('owl-loaded owl-hidden');
             $gallery.find('.owl-stage').children().unwrap();
         } catch (err) {
-            console.warn('Ошибка сброса owlCarousel', err);
+            console.warn('Failed to reset owlCarousel', err);
         }
     }
 
@@ -774,7 +927,7 @@ function showModal(item) {
     const image = sanitizeImageUrl(item.img);
 
     if (title) {
-        title.textContent = item.name || 'Без названия';
+        title.textContent = item.name || t('common.untitled');
     }
     if (cover) {
         cover.src = image;
@@ -786,16 +939,16 @@ function showModal(item) {
         mediaType.textContent = getMediaTypeLabel(item.mediaType);
     }
     if (date) {
-        date.textContent = item.date || 'Не указано';
+        date.textContent = item.date || t('common.notSpecified');
     }
     if (series) {
-        series.textContent = item.series || 'Не указано';
+        series.textContent = item.series || t('common.notSpecified');
     }
     if (time) {
-        time.textContent = item.time || 'Не указано';
+        time.textContent = item.time || t('common.notSpecified');
     }
     if (description) {
-        description.textContent = item.description || 'Описание отсутствует';
+        description.textContent = item.description || t('modal.noDescription');
     }
     if (backdrop) {
         backdrop.style.backgroundImage = `url(${image})`;
@@ -836,10 +989,10 @@ function applyFilters() {
                 return (parseDateValue(a.date)?.getTime() || 0) - (parseDateValue(b.date)?.getTime() || 0);
             }
             if (sortFilter === 'name-asc') {
-                return String(a.name || '').localeCompare(String(b.name || ''), 'ru');
+                return String(a.name || '').localeCompare(String(b.name || ''), currentLang);
             }
             if (sortFilter === 'name-desc') {
-                return String(b.name || '').localeCompare(String(a.name || ''), 'ru');
+                return String(b.name || '').localeCompare(String(a.name || ''), currentLang);
             }
             return 0;
         });
@@ -880,10 +1033,10 @@ function populateTypeFilter() {
     const currentValue = typeFilter.value || 'any';
     const mediaTypes = [...new Set(allData
         .map((item) => String(item.mediaType || '').trim())
-        .filter((type) => Boolean(type) && Boolean(mediaTypeLabels[type])))
-    ].sort((a, b) => getMediaTypeLabel(a).localeCompare(getMediaTypeLabel(b), 'ru'));
+        .filter((type) => Boolean(type) && isValidMediaType(type)))
+    ].sort((a, b) => getMediaTypeLabel(a).localeCompare(getMediaTypeLabel(b), currentLang));
 
-    typeFilter.innerHTML = '<option value="any">Тип</option>';
+    typeFilter.innerHTML = `<option value="any">${escapeHtml(t('filter.type'))}</option>`;
 
     mediaTypes.forEach((type) => {
         const option = document.createElement('option');
@@ -909,7 +1062,7 @@ function populateYearFilter() {
     const years = [...new Set(allData.map((item) => getYearFromDate(item.date)).filter(Boolean))]
         .sort((a, b) => Number(b) - Number(a));
 
-    yearFilter.innerHTML = '<option value="any">Год</option>';
+    yearFilter.innerHTML = `<option value="any">${escapeHtml(t('filter.year'))}</option>`;
     years.forEach((year) => {
         const option = document.createElement('option');
         option.value = year;
@@ -956,18 +1109,20 @@ function updateHomeContent(context) {
     const plannedSection = document.getElementById('home-planned-section');
 
     if (overviewTitle) {
-        overviewTitle.textContent = `${label}: обзор полки`;
+        overviewTitle.textContent = t('home.overview.title', { label });
     }
     if (overviewText) {
         overviewText.textContent = hasPlanned
-            ? `На главной показаны последние записи и планы по категории «${label}».`
-            : `Для категории «${label}» показаны последние записи. Отдельный список планов для нее не используется.`;
+            ? t('home.overview.textPlanned', { label })
+            : t('home.overview.textNoPlanned', { label });
     }
     if (watchedTitle) {
-        watchedTitle.textContent = `${label}: просмотрено`;
+        watchedTitle.textContent = t('home.watched.title', { label });
     }
     if (plannedTitle) {
-        plannedTitle.textContent = hasPlanned ? `${label}: в планах` : `${label}: без отдельного плана`;
+        plannedTitle.textContent = hasPlanned
+            ? t('home.planned.title', { label })
+            : t('home.planned.noPlanTitle', { label });
     }
     if (watchedLink) {
         watchedLink.href = `watched.html?category=${context.category}&view=watched`;
@@ -979,8 +1134,8 @@ function updateHomeContent(context) {
         plannedLink.classList.toggle('is-disabled', !hasPlanned);
         plannedLink.setAttribute('aria-disabled', hasPlanned ? 'false' : 'true');
         plannedLink.title = hasPlanned
-            ? 'Открыть список планов'
-            : 'Для этой категории отдельного списка планов нет';
+            ? t('home.planned.linkTitle')
+            : t('home.planned.noPlanLinkTitle');
     }
     if (plannedSection) {
         plannedSection.classList.toggle('is-disabled', !hasPlanned);
@@ -995,8 +1150,8 @@ function updateCategoryHeadings(context) {
     }
 
     const categoryLabel = getCategoryLabel(context.category);
-    const viewLabel = context.isPlanned ? 'Запланировано' : 'Просмотрено';
-    const titleText = `${categoryLabel}: ${viewLabel}`;
+    const viewLabel = context.isPlanned ? t('view.planned') : t('view.watched');
+    const titleText = t('category.heading', { category: categoryLabel, view: viewLabel });
 
     const titleEl = document.getElementById('page-title');
     const breadcrumbTitleEl = document.getElementById('breadcrumb-title');
@@ -1009,12 +1164,16 @@ function updateCategoryHeadings(context) {
         breadcrumbTitleEl.textContent = titleText;
     }
     if (searchInput) {
-        searchInput.placeholder = `Поиск: ${categoryLabel.toLowerCase()}...`;
+        searchInput.placeholder = t('category.searchPlaceholder', { category: categoryLabel.toLowerCase() });
     }
 }
 
-// === ЗАПУСК ===
+// === STARTUP ===
 document.addEventListener('DOMContentLoaded', async () => {
+    await loadTranslations();
+    applyStaticTranslations();
+    buildLanguageSwitch();
+
     currentContext = getPageContext();
 
     headerMenu(currentContext);
@@ -1033,7 +1192,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (currentContext.pageType === 'home' && !categories[currentContext.category]?.hasPlanned) {
         const plannedGallery = document.getElementById('series-gallery');
         if (plannedGallery) {
-            plannedGallery.innerHTML = '<div class="no-results">Для этой категории список планов пока не ведется</div>';
+            plannedGallery.innerHTML = `<div class="no-results">${escapeHtml(t('home.planned.empty'))}</div>`;
         }
     }
 

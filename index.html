@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MyShelf — личная полка для фильмов, сериалов, аниме, манги, книг и другого контента">
+    <meta name="description" data-i18n-content="meta.descriptionHome" content="MyShelf — a personal shelf for movies, series, anime, manga, books and other content">
     <meta name="keywords" content="myshelf, anime, cartoons, movies, series, manga, books, shelf">
 
     <title>MyShelf</title>
@@ -36,6 +36,7 @@
                         <img src="assets/img/logo/logo-dark.png" class="logo-light-mode" alt="logo">
                     </a>
                     <div class="mobile-menu-right">
+                        <div class="language-switch" role="group"></div>
                         <div class="color-mode theme-mode-control">
                             <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
                             <button type="button" class="nav-right-link dark-btn"><i class="icon-moon-2"></i></button>
@@ -47,9 +48,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="main_nav">
                         <ul class="navbar-nav" id="category-menu">
-                            <!-- Меню будет сгенерировано динамически -->
+                            <!-- Menu is generated dynamically -->
                         </ul>
                         <div class="nav-right">
+                            <div class="language-switch" role="group"></div>
                             <div class="color-mode theme-mode-control">
                                 <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
                                 <button type="button" class="nav-right-link dark-btn"><i
@@ -67,24 +69,24 @@
                 <div class="home-overview-grid">
                     <div class="home-overview-main">
                         <span class="home-overview-kicker">MyShelf</span>
-                        <h1 class="home-overview-title" id="home-overview-title">Моя полка</h1>
+                        <h1 class="home-overview-title" id="home-overview-title">My shelf</h1>
                         <p class="home-overview-text" id="home-overview-text">
-                            Смотри историю просмотров, веди планы и переключайся между категориями в один клик.
+                            Browse your watch history, keep plans and switch between categories in one click.
                         </p>
                         <div class="home-category-switch" id="home-category-switch"></div>
                     </div>
                     <div class="home-overview-stats">
                         <div class="home-stat-card">
                             <span class="home-stat-value" id="home-stat-total">0</span>
-                            <span class="home-stat-label">Всего в категории</span>
+                            <span class="home-stat-label" data-i18n="home.stat.total">Total in category</span>
                         </div>
                         <div class="home-stat-card">
                             <span class="home-stat-value" id="home-stat-watched">0</span>
-                            <span class="home-stat-label">Просмотрено</span>
+                            <span class="home-stat-label" data-i18n="home.stat.watched">Watched</span>
                         </div>
                         <div class="home-stat-card">
                             <span class="home-stat-value" id="home-stat-planned">0</span>
-                            <span class="home-stat-label">В планах</span>
+                            <span class="home-stat-label" data-i18n="home.stat.planned">Planned</span>
                         </div>
                     </div>
                 </div>
@@ -96,13 +98,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="site-heading-inline">
-                            <h2 class="site-title" id="home-watched-title">Просмотрено</h2>
-                            <a href="watched.html?category=anime&view=watched" class="theme-btn" id="home-watched-link">Открыть всё<i class="far fa-angles-right"></i></a>
+                            <h2 class="site-title" id="home-watched-title" data-i18n="view.watched">Watched</h2>
+                            <a href="watched.html?category=anime&view=watched" class="theme-btn" id="home-watched-link"><span data-i18n="home.openAll">Open all</span><i class="far fa-angles-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="movie-slider owl-carousel owl-theme" id="movie-gallery">
-                    <!-- Карточки будут добавлены динамически -->
+                    <!-- Cards are added dynamically -->
                 </div>
             </div>
         </div>
@@ -111,18 +113,18 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="site-heading-inline">
-                            <h2 class="site-title" id="home-planned-title">В планах</h2>
-                            <a href="watched.html?category=anime&view=planned" class="theme-btn" id="home-planned-link">Открыть всё<i class="far fa-angles-right"></i></a>
+                            <h2 class="site-title" id="home-planned-title" data-i18n="home.stat.planned">Planned</h2>
+                            <a href="watched.html?category=anime&view=planned" class="theme-btn" id="home-planned-link"><span data-i18n="home.openAll">Open all</span><i class="far fa-angles-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="movie-slider owl-carousel owl-theme" id="series-gallery">
-                    <!-- Карточки будут добавлены динамически -->
+                    <!-- Cards are added dynamically -->
                 </div>
             </div>
         </div>
 
-        <!-- Модальное окно -->
+        <!-- Modal window -->
         <div class="modal fade" id="animeModal" tabindex="-1" aria-labelledby="animeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -134,24 +136,24 @@
                         <div class="row align-items-center">
                             <div class="col-md-5">
                                 <div class="image-container">
-                                    <img id="modal-cover" src="" alt="Обложка">
+                                    <img id="modal-cover" src="" alt="Cover" data-i18n-alt="modal.coverAlt">
                                     <div class="image-backdrop"></div>
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="info-container">
-                                    <p><strong>Категория:</strong> <span id="modal-category"></span></p>
-                                    <p><strong>Тип:</strong> <span id="modal-type"></span></p>
-                                    <p><strong>Дата:</strong> <span id="modal-date"></span></p>
-                                    <p><strong>Эпизоды / главы:</strong> <span id="modal-series"></span></p>
-                                    <p><strong>Длительность / объем:</strong> <span id="modal-time"></span></p>
-                                    <p><strong>Описание:</strong> <span id="modal-description"></span></p>
+                                    <p><strong data-i18n="modal.category">Category:</strong> <span id="modal-category"></span></p>
+                                    <p><strong data-i18n="modal.type">Type:</strong> <span id="modal-type"></span></p>
+                                    <p><strong data-i18n="modal.date">Date:</strong> <span id="modal-date"></span></p>
+                                    <p><strong data-i18n="modal.series">Episodes / chapters:</strong> <span id="modal-series"></span></p>
+                                    <p><strong data-i18n="modal.time">Duration / volume:</strong> <span id="modal-time"></span></p>
+                                    <p><strong data-i18n="modal.description">Description:</strong> <span id="modal-description"></span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal" data-i18n="modal.close">Close</button>
                     </div>
                 </div>
             </div>
@@ -169,7 +171,7 @@
                     </div>
                     <div class="col-md-6 align-self-center">
                         <ul class="footer-social">
-                            <!-- <li><a href="index.html#"><i class="fab fa-vk"></i></a></li> -->;
+                            <li><a href="https://github.com/Divarion-D/MyShelf" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
                         </ul>
                     </div>
                 </div>
