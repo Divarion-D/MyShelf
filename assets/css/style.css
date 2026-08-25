@@ -2894,3 +2894,38 @@ label {
         font-size: 24px;
     }
 }
+
+/* === Language switcher (i18n) === */
+.language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 12px;
+}
+
+.language-btn {
+    min-width: 34px;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--body-text-color);
+    background: transparent;
+    border: 1px solid var(--border-info-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.language-btn:hover {
+    color: var(--color-white);
+    border-color: var(--theme-color);
+    background: var(--theme-color);
+}
+
+.language-btn.active {
+    color: var(--color-white);
+    border-color: var(--theme-color);
+    background: var(--theme-color);
+}
+}

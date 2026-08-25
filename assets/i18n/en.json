@@ -1,0 +1,80 @@
+{
+  "common.untitled": "Untitled",
+  "common.notSpecified": "Not specified",
+
+  "language.label": "Language",
+
+  "nav.home": "Home",
+  "nav.categories": "Categories",
+  "view.watched": "Watched",
+  "view.planned": "Planned",
+
+  "breadcrumb.home": "Home",
+
+  "category.anime": "Anime",
+  "category.cartoon": "Cartoons",
+  "category.series": "Series",
+  "category.movie": "Movies",
+  "category.manga": "Manga",
+  "category.book": "Books",
+  "category.other": "Other",
+
+  "mediaType.movie": "Movie",
+  "mediaType.series": "Series",
+  "mediaType.anime": "Anime",
+  "mediaType.cartoon": "Cartoon",
+  "mediaType.manga": "Manga",
+  "mediaType.book": "Book",
+  "mediaType.other": "Other",
+
+  "meta.animeMovie": "Anime movie",
+  "meta.animeSeries": "Anime series",
+
+  "badge.watched": "DONE",
+  "badge.planned": "PLAN",
+
+  "duration.noVolume": "No volume data",
+  "duration.noDuration": "No duration data",
+
+  "gallery.empty": "Nothing found",
+
+  "home.stat.total": "Total in category",
+  "home.stat.watched": "Watched",
+  "home.stat.planned": "Planned",
+  "home.openAll": "Open all",
+  "home.overview.title": "{label}: shelf overview",
+  "home.overview.textPlanned": "The home page shows the latest entries and plans for the «{label}» category.",
+  "home.overview.textNoPlanned": "For the «{label}» category only the latest entries are shown. A separate plan list is not used.",
+  "home.watched.title": "{label}: watched",
+  "home.planned.title": "{label}: planned",
+  "home.planned.noPlanTitle": "{label}: no separate plan",
+  "home.planned.linkTitle": "Open the plan list",
+  "home.planned.noPlanLinkTitle": "This category has no separate plan list",
+  "home.planned.empty": "No plan list is kept for this category yet",
+
+  "category.heading": "{category}: {view}",
+  "category.searchPlaceholder": "Search: {category}...",
+
+  "filter.searchPlaceholder": "Search the shelf...",
+  "filter.type": "Type",
+  "filter.year": "Year",
+  "filter.sort": "Sort",
+  "filter.sortDateDesc": "By date (descending)",
+  "filter.sortDateAsc": "By date (ascending)",
+  "filter.sortNameAsc": "By name (A-Z)",
+  "filter.sortNameDesc": "By name (Z-A)",
+  "filter.apply": "Apply filter",
+
+  "modal.coverAlt": "Cover",
+  "modal.category": "Category:",
+  "modal.type": "Type:",
+  "modal.date": "Date:",
+  "modal.series": "Episodes / chapters:",
+  "modal.time": "Duration / volume:",
+  "modal.description": "Description:",
+  "modal.close": "Close",
+  "modal.noDescription": "No description",
+
+  "meta.descriptionHome": "MyShelf — a personal shelf for movies, series, anime, manga, books and other content",
+  "meta.descriptionCatalog": "MyShelf — a catalog of watched and planned content"
+}

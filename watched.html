@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MyShelf — каталог просмотренного и запланированного контента">
+    <meta name="description" data-i18n-content="meta.descriptionCatalog" content="MyShelf — a catalog of watched and planned content">
     <meta name="keywords" content="myshelf, anime, cartoons, movies, series, manga, books, shelf">
 
     <title>MyShelf</title>
@@ -38,6 +38,7 @@
                         <img src="assets/img/logo/logo-dark.png" class="logo-light-mode" alt="logo">
                     </a>
                     <div class="mobile-menu-right">
+                        <div class="language-switch" role="group"></div>
                         <div class="color-mode theme-mode-control">
                             <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
                             <button type="button" class="nav-right-link dark-btn"><i class="icon-moon-2"></i></button>
@@ -49,9 +50,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="main_nav">
                         <ul class="navbar-nav" id="category-menu">
-                            <!-- Меню будет сгенерировано динамически -->
+                            <!-- Menu is generated dynamically -->
                         </ul>
                         <div class="nav-right">
+                            <div class="language-switch" role="group"></div>
                             <div class="color-mode theme-mode-control">
                                 <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
                                 <button type="button" class="nav-right-link dark-btn"><i
@@ -69,7 +71,7 @@
             <div class="container">
                 <h2 class="breadcrumb-title" id="page-title">View</h2>
                 <ul class="breadcrumb-menu">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" data-i18n="breadcrumb.home">Home</a></li>
                     <li class="active" id="breadcrumb-title">View</li>
                 </ul>
             </div>
@@ -82,7 +84,7 @@
                             <form action="#">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="search-input"
-                                        placeholder="Поиск по полке...">
+                                        data-i18n-placeholder="filter.searchPlaceholder" placeholder="Search the shelf...">
                                     <button type="button"><i class="icon-search"></i></button>
                                 </div>
                             </form>
@@ -94,21 +96,21 @@
                                 <div class="filter-sort">
                                     <div class="filter-select">
                                         <select class="select" id="type-filter">
-                                            <option value="any">Тип</option>
+                                            <option value="any" data-i18n="filter.type">Type</option>
                                         </select>
                                     </div>
                                     <div class="filter-select">
                                         <select class="select" id="year-filter">
-                                            <option value="any">Год</option>
+                                            <option value="any" data-i18n="filter.year">Year</option>
                                         </select>
                                     </div>
                                     <div class="filter-select">
                                         <select class="select" id="sort-filter">
-                                            <option value="none">Сортировка</option>
-                                            <option value="date-desc">По дате (убывание)</option>
-                                            <option value="date-asc">По дате (возрастание)</option>
-                                            <option value="name-asc">По названию (А-Я)</option>
-                                            <option value="name-desc">По названию (Я-А)</option>
+                                            <option value="none" data-i18n="filter.sort">Sort</option>
+                                            <option value="date-desc" data-i18n="filter.sortDateDesc">By date (descending)</option>
+                                            <option value="date-asc" data-i18n="filter.sortDateAsc">By date (ascending)</option>
+                                            <option value="name-asc" data-i18n="filter.sortNameAsc">By name (A-Z)</option>
+                                            <option value="name-desc" data-i18n="filter.sortNameDesc">By name (Z-A)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -118,7 +120,7 @@
                     <div class="col-lg-2">
                         <div class="filter-btn text-end">
                             <button type="button" class="theme-btn" id="apply-filter"><span class="fas fa-sort"></span>
-                                Применить фильтр</button>
+                                <span data-i18n="filter.apply">Apply filter</span></button>
                         </div>
                     </div>
                 </div>
@@ -128,20 +130,20 @@
         <div class="movie-area py-80">
             <div class="container">
                 <div class="row row-cols-xl-5" id="series-gallery">
-                    <!-- Карточки будут добавлены динамически -->
+                    <!-- Cards are added dynamically -->
                 </div>
 
                 <div class="pagination-area mt-20">
                     <div aria-label="Page navigation example">
                         <ul class="pagination" id="pagination">
-                            <!-- Пагинация будет добавлена динамически -->
+                            <!-- Pagination is added dynamically -->
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Модальное окно -->
+        <!-- Modal window -->
         <div class="modal fade" id="animeModal" tabindex="-1" aria-labelledby="animeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -153,24 +155,24 @@
                         <div class="row align-items-center">
                             <div class="col-md-5">
                                 <div class="image-container">
-                                    <img id="modal-cover" src="" alt="Обложка">
+                                    <img id="modal-cover" src="" alt="Cover" data-i18n-alt="modal.coverAlt">
                                     <div class="image-backdrop"></div>
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="info-container">
-                                    <p><strong>Категория:</strong> <span id="modal-category"></span></p>
-                                    <p><strong>Тип:</strong> <span id="modal-type"></span></p>
-                                    <p><strong>Дата:</strong> <span id="modal-date"></span></p>
-                                    <p><strong>Эпизоды / главы:</strong> <span id="modal-series"></span></p>
-                                    <p><strong>Длительность / объем:</strong> <span id="modal-time"></span></p>
-                                    <p><strong>Описание:</strong> <span id="modal-description"></span></p>
+                                    <p><strong data-i18n="modal.category">Category:</strong> <span id="modal-category"></span></p>
+                                    <p><strong data-i18n="modal.type">Type:</strong> <span id="modal-type"></span></p>
+                                    <p><strong data-i18n="modal.date">Date:</strong> <span id="modal-date"></span></p>
+                                    <p><strong data-i18n="modal.series">Episodes / chapters:</strong> <span id="modal-series"></span></p>
+                                    <p><strong data-i18n="modal.time">Duration / volume:</strong> <span id="modal-time"></span></p>
+                                    <p><strong data-i18n="modal.description">Description:</strong> <span id="modal-description"></span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal" data-i18n="modal.close">Close</button>
                     </div>
                 </div>
             </div>

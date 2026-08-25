@@ -1,0 +1,80 @@
+{
+  "common.untitled": "Без названия",
+  "common.notSpecified": "Не указано",
+
+  "language.label": "Язык",
+
+  "nav.home": "Главная",
+  "nav.categories": "Категории",
+  "view.watched": "Просмотрено",
+  "view.planned": "Запланировано",
+
+  "breadcrumb.home": "Главная",
+
+  "category.anime": "Аниме",
+  "category.cartoon": "Мультики",
+  "category.series": "Сериалы",
+  "category.movie": "Фильмы",
+  "category.manga": "Манга",
+  "category.book": "Книги",
+  "category.other": "Прочее",
+
+  "mediaType.movie": "Фильм",
+  "mediaType.series": "Сериал",
+  "mediaType.anime": "Аниме",
+  "mediaType.cartoon": "Мультик",
+  "mediaType.manga": "Манга",
+  "mediaType.book": "Книга",
+  "mediaType.other": "Прочее",
+
+  "meta.animeMovie": "Аниме-фильм",
+  "meta.animeSeries": "Аниме-сериал",
+
+  "badge.watched": "ГОТОВО",
+  "badge.planned": "ПЛАН",
+
+  "duration.noVolume": "Нет данных по объему",
+  "duration.noDuration": "Нет данных по длительности",
+
+  "gallery.empty": "Ничего не найдено",
+
+  "home.stat.total": "Всего в категории",
+  "home.stat.watched": "Просмотрено",
+  "home.stat.planned": "В планах",
+  "home.openAll": "Открыть всё",
+  "home.overview.title": "{label}: обзор полки",
+  "home.overview.textPlanned": "На главной показаны последние записи и планы по категории «{label}».",
+  "home.overview.textNoPlanned": "Для категории «{label}» показаны последние записи. Отдельный список планов для нее не используется.",
+  "home.watched.title": "{label}: просмотрено",
+  "home.planned.title": "{label}: в планах",
+  "home.planned.noPlanTitle": "{label}: без отдельного плана",
+  "home.planned.linkTitle": "Открыть список планов",
+  "home.planned.noPlanLinkTitle": "Для этой категории отдельного списка планов нет",
+  "home.planned.empty": "Для этой категории список планов пока не ведется",
+
+  "category.heading": "{category}: {view}",
+  "category.searchPlaceholder": "Поиск: {category}...",
+
+  "filter.searchPlaceholder": "Поиск по полке...",
+  "filter.type": "Тип",
+  "filter.year": "Год",
+  "filter.sort": "Сортировка",
+  "filter.sortDateDesc": "По дате (убывание)",
+  "filter.sortDateAsc": "По дате (возрастание)",
+  "filter.sortNameAsc": "По названию (А-Я)",
+  "filter.sortNameDesc": "По названию (Я-А)",
+  "filter.apply": "Применить фильтр",
+
+  "modal.coverAlt": "Обложка",
+  "modal.category": "Категория:",
+  "modal.type": "Тип:",
+  "modal.date": "Дата:",
+  "modal.series": "Эпизоды / главы:",
+  "modal.time": "Длительность / объем:",
+  "modal.description": "Описание:",
+  "modal.close": "Закрыть",
+  "modal.noDescription": "Описание отсутствует",
+
+  "meta.descriptionHome": "MyShelf — личная полка для фильмов, сериалов, аниме, манги, книг и другого контента",
+  "meta.descriptionCatalog": "MyShelf — каталог просмотренного и запланированного контента"
+}
